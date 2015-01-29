@@ -1,0 +1,84 @@
+package initialTesting;
+
+import org.lsmr.vendingmachine.simulator.Coin;
+import org.lsmr.vendingmachine.simulator.CoinChannelSimulator;
+import org.lsmr.vendingmachine.simulator.CoinReceptacleSimulator;
+import org.lsmr.vendingmachine.simulator.CoinSlotSimulator;
+import org.lsmr.vendingmachine.simulator.DisabledException;
+import org.lsmr.vendingmachine.simulator.DisplaySimulator;
+import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
+
+public class Test {
+
+	public static void main(String[] args) {
+		testReturnCoins();		
+	}
+	
+	//simulates inputting a valid coin into the slot
+	//moves coin from slot to channel to receptacle
+	//updates display to reflect new value of receptacle
+	public static void testEnterCoin(int value) {
+		int[] validValues = {5, 10, 25, 100, 200};
+		//parameter is all values of coins that the machine will accept
+		CoinSlotSimulator slot = new CoinSlotSimulator(validValues);
+		//parameter is capacity of the receptacle
+		//normal receptacle
+		CoinReceptacleSimulator receptacle = new CoinReceptacleSimulator(50);
+		//parameter is the output for the coin channel
+		//channel from the slot to the normal receptacle
+		CoinChannelSimulator slotToReceptacle = new CoinChannelSimulator(receptacle);
+		//receptacle for invalid coins
+		CoinReceptacleSimulator garbage = new CoinReceptacleSimulator(50);
+		//channel from slot to garbage
+		CoinChannelSimulator slotToGarbage = new CoinChannelSimulator(garbage);
+		DisplaySimulator display = new DisplaySimulator();
+		
+		receptacle.register(display);
+		
+		//slotToReceptacle is where valid coins are sent, slotToGarbage is where invalid coins are sent
+		slot.connect(slotToReceptacle, slotToGarbage);
+		
+		//the coin being entered
+		Coin coin = new Coin(value);
+		
+		try {
+			//coin is entered
+			slot.addCoin(coin);
+		} catch (DisabledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}
+	
+	//unfinished
+	//tests returning coins in the receptacle to the user
+	public static void testReturnCoins() {
+		SelectionButtonSimulator returnBtn = new SelectionButtonSimulator(true);
+		//where the coins go from the coin slot
+		CoinReceptacleSimulator receptacle = new CoinReceptacleSimulator(50);
+		//preloading receptacle with a quarter
+		receptacle.loadWithoutEvents(new Coin(25));
+		//receptacle for coin return
+		//unsure if this is the proper class for this
+		CoinReceptacleSimulator coinReturn = new CoinReceptacleSimulator(50);
+		//channel from receptacle to coin return
+		CoinChannelSimulator receptacleToReturn = new CoinChannelSimulator(coinReturn);
+		DisplaySimulator display = new DisplaySimulator();
+		
+		//connecting receptacle and channel
+		receptacle.connect(null, receptacleToReturn, null);
+		
+		//registering the receptacle to listen to the return button
+		returnBtn.register(receptacle);
+		
+		//registering the display to listen to the receptacle
+		receptacle.register(display);
+		
+		//button gets pressed
+		returnBtn.press();		
+	}
+	
+	
+
+}
