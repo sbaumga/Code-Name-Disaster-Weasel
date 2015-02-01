@@ -94,7 +94,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	
 	popCanRacks = new PopCanRackSimulator[popNames.length];
 	for(int i = 0; i < popNames.length; i++) {
-	    popCanRacks[i] = new PopCanRackSimulator(popRackCapacity);
+	    popCanRacks[i] = new PopCanRackSimulator(popRackCapacity, popCosts[i]);
 	    popCanRacks[i].connect(new PopCanChannelSimulator(deliveryChute));
 	}
 
@@ -301,5 +301,28 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 		// after five seconds change message back
 		// (see the popEmpty in display for an example of how to do this)
 		
+		// use loop to find the index of the pressed button for dispensing the correct pop
+		int IndexOfPressedButton = 6, elementcounter = 0;
+
+		for(SelectionButtonSimulator btn : buttons){
+			if(btn == button){
+				IndexOfPressedButton = elementcounter;
+				break;
+			}
+			elementcounter++;
+		}
+		
+		
+		if(receptacle.getTotalValue()>= popCanRacks[IndexOfPressedButton].getPrice()){
+		
+		// dispense pop from the correct pop rack
+		try {
+			getPopCanRack(elementcounter).dispensePop();
+		} catch (DisabledException | EmptyException | CapacityExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
+}
 }

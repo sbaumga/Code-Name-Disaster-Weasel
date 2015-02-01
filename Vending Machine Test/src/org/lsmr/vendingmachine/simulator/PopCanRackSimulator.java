@@ -10,7 +10,7 @@ import java.util.Queue;
  * it from dispensing pop cans.
  */
 public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
-    private int maxCapacity;
+    private int maxCapacity, price;
     private Queue<PopCan> queue = new LinkedList<PopCan>();
     private PopCanChannelSimulator sink;
 
@@ -23,11 +23,12 @@ public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
      * @throws SimulationException
      *             if the indicated capacity is not positive.
      */
-    public PopCanRackSimulator(int capacity) {
+    public PopCanRackSimulator(int capacity, int price) {
 	if(capacity <= 0)
 	    throw new SimulationException("Capacity cannot be non-positive: " + capacity);
-
+	
 	this.maxCapacity = capacity;
+	this.price = price;
     }
 
     /**
@@ -35,6 +36,13 @@ public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
      */
     public int getCapacity() {
 	return maxCapacity;
+    }
+    
+    /**
+     * Returns the price of this pop can rack. Causes no events.
+     */
+    public int getPrice(){
+    	return price;
     }
 
     /**
