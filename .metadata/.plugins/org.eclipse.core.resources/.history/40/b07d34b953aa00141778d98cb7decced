@@ -115,8 +115,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	for (PopCanRackSimulator rack: popCanRacks)
 		rack.register(display);
 	storageBin.register(this);
-	for (SelectionButtonSimulator button: buttons)
-		button.register(this);
 	
     }
 
