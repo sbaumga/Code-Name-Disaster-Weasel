@@ -96,6 +96,7 @@ public class DisplaySimulator extends
 	public void popEmpty(PopCanRackSimulator popRack) {
 		// when pop rack is empty display
 		final String oldMsg = message;
+		TimerTask task = new TimerSchedulePeriod();
 		Timer timer = new Timer();
 		display("Out of product");
 		timer.schedule(new TimerTask() {

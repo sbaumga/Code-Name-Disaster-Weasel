@@ -1,6 +1,6 @@
 package org.lsmr.vendingmachine.simulator;
 
-import java.util.*;
+import java.util.Timer;
 
 /**
  * A simple device that displays a string. How it does this is not part of the
@@ -95,13 +95,16 @@ public class DisplaySimulator extends
 	@Override
 	public void popEmpty(PopCanRackSimulator popRack) {
 		// when pop rack is empty display
-		final String oldMsg = message;
+		String oldMsg = message;
 		Timer timer = new Timer();
 		display("Out of product");
+		/*
 		timer.schedule(new TimerTask() {
+			@Override
 			public void run() {
-				display(oldMsg);
+				
 			}
-		}, 5000);
+		}, 5 * 1000);
+		*/
 	}
 }
