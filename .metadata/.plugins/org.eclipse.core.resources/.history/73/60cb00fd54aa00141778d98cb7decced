@@ -1,5 +1,7 @@
 package org.lsmr.vendingmachine.simulator;
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a standard configuration of the vending machine hardware:
@@ -12,21 +14,24 @@ package org.lsmr.vendingmachine.simulator;
  * <li>one delivery chute used to deliver pop cans and to return coins;</li>
  * <li>a set of zero or more pop can racks (the number, cost, and pop name
  * stored in each is specified in the constructor);</li>
+ * <li>one slot for accepting magnetic stripe cards (e.g., credit cards, debit
+ * cards);</li>
  * <li>one textual display;</li>
- * <li>a set of zero or more selection buttons (exactly one per pop can rack);</li>
- * <li>a selection button to return entered coins to the user;
+ * <li>a set of zero or more selection buttons (exactly one per pop can rack);
  * and</li>
- * <li>one indicator light to indicate that the machine is out of order.</li>
+ * <li>two indicator lights: one to indicate that exact change should be used by
+ * the user; the other to indicate that the machine is out of order.</li>
  * </ul>
  * <p>
  * The component devices are interconnected as follows:
  * <ul>
  * <li>the output of the coin slot is connected to the input of the coin
  * receptacle;</li>
- * <li>the outputs of the coin receptacle are connected to the input of the
- *  the delivery chute (for invalid coins or other coins to be returned) and 
- *  the storage bin (for coins to be accepted as payment);</li>
- * <li>and</li>
+ * <li>the outputs of the coin receptacle are connected to the inputs of the
+ * coin racks (for valid coins to be stored therein), the delivery chute (for
+ * invalid coins or other coins to be returned), and the storage bin (for coins
+ * to be accepted that do not fit in the coin racks);</li>
+ * <li>the output of each coin rack is connected to the delivery chute; and</li>
  * <li>the output of each pop can rack is connected to the delivery chute.</li>
  * </ul>
  * <p>
@@ -47,13 +52,12 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
     private PopCanRackSimulator[] popCanRacks;
     private DisplaySimulator display;
     private SelectionButtonSimulator[] buttons;
-    private SelectionButtonSimulator returnButton;
     private IndicatorLightSimulator outOfOrderLight;
 
     protected static int deliveryChuteCapacity = 20;
-    //this is set high to ensure that this case will not occur often
     protected static int coinReceptableCapacity = 1000;
     protected static int storageBinCapacity = 1000;
+    protected static int coinRackCapacity = 20;
     protected static int popRackCapacity = 15;
     protected static int displayCharacters = 30;
 
@@ -108,7 +112,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	outOfOrderLight = new IndicatorLightSimulator();
 	
 	receptacle.register(display);
-	returnButton.register(receptacle);
 	for (PopCanRackSimulator rack: popCanRacks)
 		rack.register(display);
 	storageBin.register(this);
@@ -182,10 +185,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
      */
     public int getNumberOfSelectionButtons() {
 	return buttons.length;
-    }
-    
-    public SelectionButtonSimulator getReturnButton() {
-    	return returnButton;
     }
 
     /**

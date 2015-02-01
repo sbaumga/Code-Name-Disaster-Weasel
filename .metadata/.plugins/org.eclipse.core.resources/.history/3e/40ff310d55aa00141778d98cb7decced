@@ -1,6 +1,7 @@
 package org.lsmr.vendingmachine.simulator;
 
 
+
 /**
  * Represents a standard configuration of the vending machine hardware:
  * <ul>
