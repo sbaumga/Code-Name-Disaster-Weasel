@@ -35,6 +35,12 @@ public class DisplaySimulator extends
 	Object[] args = new Object[] { this, oldMsg, newMsg };
 	notifyListeners(DisplaySimulatorListener.class, "messageChange", parameterTypes, args);
     }
+    
+    public String getMessage(){
+    	return message;
+    }
+    
+    
 
 	@Override
 	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {

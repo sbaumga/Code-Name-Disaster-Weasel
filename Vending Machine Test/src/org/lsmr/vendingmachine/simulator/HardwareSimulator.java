@@ -1,5 +1,8 @@
 package org.lsmr.vendingmachine.simulator;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Represents a standard configuration of the vending machine hardware:
@@ -111,7 +114,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	returnButton.register(receptacle);
 	for (PopCanRackSimulator rack: popCanRacks)
 		rack.register(display);
-	storageBin.register(this);
+		storageBin.register(this);
 	for (SelectionButtonSimulator button: buttons)
 		button.register(this);
 	
@@ -314,15 +317,36 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 		
 		
 		if(receptacle.getTotalValue()>= popCanRacks[IndexOfPressedButton].getPrice()){
-		
-		// dispense pop from the correct pop rack
-		try {
-			getPopCanRack(elementcounter).dispensePop();
-		} catch (DisabledException | EmptyException | CapacityExceededException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			// sufficient amount
+			// store coins to permanent storage	
+			try {
+				receptacle.storeCoins();
+			} catch (CapacityExceededException | DisabledException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			// dispense pop to deliver chute
+			try {
+				getPopCanRack(elementcounter).dispensePop();
+			} catch (DisabledException | EmptyException | CapacityExceededException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			
+			// insufficient money
+			// print the price of the selected pop for 5 second
+			final String oldMsg = display.getMessage();
+			Timer timer = new Timer();
+			display.display('$' + Double.toString(popCanRacks[IndexOfPressedButton].getPrice() * 0.01));
+			timer.schedule(new TimerTask() {
+				public void run() {
+					display.display(oldMsg);
+				}
+			}, 5000); // 5000 = time to wait in milliseconds
+				
 		}
-		
-	}
 }
 }
