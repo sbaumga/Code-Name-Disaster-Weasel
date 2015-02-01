@@ -45,15 +45,23 @@ public class DisplaySimulator extends
 	}
 
 	@Override
-	//Sets the display message to be the value of all coins in the receptacle 
 	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
-		display('$' + Double.toString(receptacle.getTotalValue() * 0.01));
+		//adds the value of the added coin to the display
+		if (message == null) {
+			//display update when no message is set yet
+			display(Double.toString(coin.getValue() * 0.01));
+		} else {
+			//display update when message is set
+			//does not account for a proper update if message is not a number
+			double prev = Double.parseDouble(message);
+			display(Double.toString(prev + coin.getValue() * 0.01));
+		}
 	}
 
 	@Override
 	public void coinsRemoved(CoinReceptacleSimulator receptacle) {
 		//all coins should be removed at once, thus the display simply gets set to 0
-		display("$0.00");
+		display("0.00");
 	}
 
 	@Override

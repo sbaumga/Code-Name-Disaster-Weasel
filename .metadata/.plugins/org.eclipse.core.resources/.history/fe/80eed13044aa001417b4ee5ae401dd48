@@ -45,7 +45,7 @@ import java.util.Map;
  * number of pop cans that can be stored therein). In some cases, this is a
  * simplification of the physical reality for the sake of simulation.
  */
-public class HardwareSimulator implements CoinReceptacleListener {
+public class HardwareSimulator {
     private boolean safetyOn = false;
 
     private CoinSlotSimulator coinSlot;
@@ -121,11 +121,7 @@ public class HardwareSimulator implements CoinReceptacleListener {
     public void enableSafety() {
 	safetyOn = true;
 	coinSlot.disable();
-	// TODO: actually remove this
-	//coins entered need to be returned, so this cannot be disabled
-	//deliveryChute.disable();
-	
-	display.display("Out of order");
+	deliveryChute.disable();
 
 	for(int i = 0; i < popCanRacks.length; i++)
 	    popCanRacks[i].disable();
@@ -235,46 +231,4 @@ public class HardwareSimulator implements CoinReceptacleListener {
     public DisplaySimulator getDisplay() {
 	return display;
     }
-
-	@Override
-	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the receptacle is enabled
-		
-	}
-
-	@Override
-	public void disabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the receptacle is disabled
-		
-	}
-
-	@Override
-	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
-		// Should not need to do anything when a coin is added to a receptacle
-		
-	}
-
-	@Override
-	public void coinsRemoved(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when coins are removed from a receptacle
-		
-	}
-
-	@Override
-	public void coinsFull(CoinReceptacleSimulator receptacle) {
-		// When the receptacle is full, disable things
-		enableSafety();
-	}
-
-	@Override
-	public void enabled(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when the receptacle is enabled
-		
-	}
-
-	@Override
-	public void disabled(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when the receptacle is disabled
-		
-	}
 }

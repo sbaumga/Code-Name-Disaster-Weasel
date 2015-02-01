@@ -45,16 +45,19 @@ import java.util.Map;
  * number of pop cans that can be stored therein). In some cases, this is a
  * simplification of the physical reality for the sake of simulation.
  */
-public class HardwareSimulator implements CoinReceptacleListener {
+public class HardwareSimulator {
     private boolean safetyOn = false;
 
     private CoinSlotSimulator coinSlot;
     private CoinReceptacleSimulator receptacle, storageBin;
     private DeliveryChuteSimulator deliveryChute;
+    private CoinRackSimulator[] coinRacks;
+    private Map<Integer, CoinChannelSimulator> coinRackChannels;
     private PopCanRackSimulator[] popCanRacks;
+    private CardSlotSimulator cardSlot;
     private DisplaySimulator display;
     private SelectionButtonSimulator[] buttons;
-    private IndicatorLightSimulator outOfOrderLight;
+    private IndicatorLightSimulator exactChangeLight, outOfOrderLight;
 
     protected static int deliveryChuteCapacity = 20;
     protected static int coinReceptableCapacity = 50;
@@ -91,13 +94,21 @@ public class HardwareSimulator implements CoinReceptacleListener {
 	if(popCosts.length != popNames.length)
 	    throw new SimulationException("Pop costs and names must be of same length");
 
+	cardSlot = new CardSlotSimulator();
 	display = new DisplaySimulator();
 
 	coinSlot = new CoinSlotSimulator(coinValues);
 	receptacle = new CoinReceptacleSimulator(coinReceptableCapacity);
 	storageBin = new CoinReceptacleSimulator(storageBinCapacity);
 	deliveryChute = new DeliveryChuteSimulator(deliveryChuteCapacity);
-	
+	coinRacks = new CoinRackSimulator[coinValues.length];
+	coinRackChannels = new HashMap<Integer, CoinChannelSimulator>();
+	for(int i = 0; i < coinValues.length; i++) {
+	    coinRacks[i] = new CoinRackSimulator(coinRackCapacity);
+	    coinRacks[i].connect(new CoinChannelSimulator(deliveryChute));
+	    coinRackChannels.put(new Integer(coinValues[i]), new CoinChannelSimulator(coinRacks[i]));
+	}
+
 	popCanRacks = new PopCanRackSimulator[popNames.length];
 	for(int i = 0; i < popNames.length; i++) {
 	    popCanRacks[i] = new PopCanRackSimulator(popRackCapacity);
@@ -109,8 +120,9 @@ public class HardwareSimulator implements CoinReceptacleListener {
 	    buttons[i] = new SelectionButtonSimulator(false);
 
 	coinSlot.connect(new CoinChannelSimulator(receptacle), new CoinChannelSimulator(deliveryChute));
-	receptacle.connect(null, new CoinChannelSimulator(deliveryChute), new CoinChannelSimulator(storageBin));
+	receptacle.connect(coinRackChannels, new CoinChannelSimulator(deliveryChute), new CoinChannelSimulator(storageBin));
 
+	exactChangeLight = new IndicatorLightSimulator();
 	outOfOrderLight = new IndicatorLightSimulator();
     }
 
@@ -121,14 +133,14 @@ public class HardwareSimulator implements CoinReceptacleListener {
     public void enableSafety() {
 	safetyOn = true;
 	coinSlot.disable();
-	// TODO: actually remove this
-	//coins entered need to be returned, so this cannot be disabled
-	//deliveryChute.disable();
-	
-	display.display("Out of order");
+	cardSlot.disable();
+	deliveryChute.disable();
 
 	for(int i = 0; i < popCanRacks.length; i++)
 	    popCanRacks[i].disable();
+
+	for(int i = 0; i < coinRacks.length; i++)
+	    coinRacks[i].disable();
 
 	outOfOrderLight.activate();
     }
@@ -140,10 +152,14 @@ public class HardwareSimulator implements CoinReceptacleListener {
     public void disableSafety() {
 	safetyOn = false;
 	coinSlot.enable();
+	cardSlot.enable();
 	deliveryChute.enable();
 
 	for(int i = 0; i < popCanRacks.length; i++)
 	    popCanRacks[i].enable();
+
+	for(int i = 0; i < coinRacks.length; i++)
+	    coinRacks[i].enable();
 
 	outOfOrderLight.deactivate();
     }
@@ -153,6 +169,13 @@ public class HardwareSimulator implements CoinReceptacleListener {
      */
     public boolean isSafetyEnabled() {
 	return safetyOn;
+    }
+
+    /**
+     * Returns the exact change light.
+     */
+    public IndicatorLightSimulator getExactChangeLight() {
+	return exactChangeLight;
     }
 
     /**
@@ -209,6 +232,24 @@ public class HardwareSimulator implements CoinReceptacleListener {
 	return deliveryChute;
     }
 
+    /**
+     * Returns the number of coin racks.
+     */
+    public int getNumberOfCoinRacks() {
+	return coinRacks.length;
+    }
+
+    /**
+     * Returns a coin rack at the indicated index.
+     * 
+     * @param index
+     *            The index of the desired coin rack.
+     * @throws IndexOutOfBoundsException
+     *             if the index < 0 or the index >= number of coin racks.
+     */
+    public CoinRackSimulator getCoinRack(int index) {
+	return coinRacks[index];
+    }
 
     /**
      * Returns the number of pop can racks.
@@ -230,51 +271,16 @@ public class HardwareSimulator implements CoinReceptacleListener {
     }
 
     /**
+     * Returns the slot for magnetic stripe cards.
+     */
+    public CardSlotSimulator getCardSlot() {
+	return cardSlot;
+    }
+
+    /**
      * Returns the textual display.
      */
     public DisplaySimulator getDisplay() {
 	return display;
     }
-
-	@Override
-	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the receptacle is enabled
-		
-	}
-
-	@Override
-	public void disabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the receptacle is disabled
-		
-	}
-
-	@Override
-	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
-		// Should not need to do anything when a coin is added to a receptacle
-		
-	}
-
-	@Override
-	public void coinsRemoved(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when coins are removed from a receptacle
-		
-	}
-
-	@Override
-	public void coinsFull(CoinReceptacleSimulator receptacle) {
-		// When the receptacle is full, disable things
-		enableSafety();
-	}
-
-	@Override
-	public void enabled(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when the receptacle is enabled
-		
-	}
-
-	@Override
-	public void disabled(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when the receptacle is disabled
-		
-	}
 }

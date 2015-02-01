@@ -55,12 +55,7 @@ public class CoinSlotSimulator extends AbstractHardware<CoinSlotListener> {
     public void addCoin(Coin coin) throws DisabledException {
 	//If disabled return coins immediately
     if(isDisabled())
-		try {
-			invalid.deliver(coin);
-		} catch (CapacityExceededException e) {
-			// Should never happen
-			throw new SimulationException(e);
-		}
+	    invalid.deliver(coin);
 
 	if(isValid(coin) && valid.hasSpace()) {
 	    try {

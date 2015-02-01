@@ -165,18 +165,6 @@ public class CoinReceptacleSimulator extends AbstractHardware<CoinReceptacleList
     public boolean hasSpace() {
 	return coinsEntered.size() < maxCapacity;
     }
-    
-    /**
-     * Returns the value of all coins in the receptacle
-     * @return value, the combined value of all coins in coinsentered
-     */
-    public int getTotalValue() {
-    	int value = 0;
-    	for(Coin coin : coinsEntered) {
-    		value += coin.getValue();
-    	}
-    	return value;
-    }
 
     private void notifyCoinAdded(Coin coin) {
 	Class<?>[] parameterTypes = new Class<?>[] { CoinReceptacleSimulator.class, Coin.class };
@@ -209,16 +197,14 @@ public class CoinReceptacleSimulator extends AbstractHardware<CoinReceptacleList
 	@Override
 	public void pressed(SelectionButtonSimulator button) {
 		//when return button is pressed, all coins should be returned
-		if (button.getIsReturn()) {
-			try {
-				returnCoins();
-			} catch (CapacityExceededException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (DisabledException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			returnCoins();
+		} catch (CapacityExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DisabledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

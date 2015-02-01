@@ -121,11 +121,7 @@ public class HardwareSimulator implements CoinReceptacleListener {
     public void enableSafety() {
 	safetyOn = true;
 	coinSlot.disable();
-	// TODO: actually remove this
-	//coins entered need to be returned, so this cannot be disabled
-	//deliveryChute.disable();
-	
-	display.display("Out of order");
+	deliveryChute.disable();
 
 	for(int i = 0; i < popCanRacks.length; i++)
 	    popCanRacks[i].disable();
