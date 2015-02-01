@@ -9,7 +9,8 @@ import java.util.Queue;
  * has finite, positive capacity. A pop can rack can be disabled, which prevents
  * it from dispensing pop cans.
  */
-public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
+public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> 
+				implements SelectionButtonSimulatorListener {
     private int maxCapacity;
     private Queue<PopCan> queue = new LinkedList<PopCan>();
     private PopCanChannelSimulator sink;
@@ -159,4 +160,29 @@ public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
 	Object[] args = new Object[] { this, pop };
 	notifyListeners(PopCanRackListener.class, "popRemoved", parameterTypes, args);
     }
+
+	@Override
+	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disabled(AbstractHardware<AbstractHardwareListener> hardware) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pressed(SelectionButtonSimulator button) {
+		try {
+			dispensePop();
+		} catch (DisabledException | EmptyException | CapacityExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+
 }

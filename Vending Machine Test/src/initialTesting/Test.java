@@ -1,6 +1,6 @@
 package initialTesting;
 
-import org.lsmr.vendingmachine.simulator.Coin;
+import org.lsmr.vendingmachine.simulator.*;
 import org.lsmr.vendingmachine.simulator.CoinChannelSimulator;
 import org.lsmr.vendingmachine.simulator.CoinReceptacleSimulator;
 import org.lsmr.vendingmachine.simulator.CoinSlotSimulator;
@@ -11,7 +11,7 @@ import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 public class Test {
 
 	public static void main(String[] args) {
-		testReturnCoins();		
+		testEnterCoin(5);		
 	}
 	
 	//simulates inputting a valid coin into the slot
@@ -77,6 +77,30 @@ public class Test {
 		
 		//button gets pressed
 		returnBtn.press();		
+	}
+	
+	public static void testPopDispense(){
+		
+		int[] validValues = {5, 10, 25, 100, 200};
+		int[] popCost = {250, 250, 250, 250, 250};
+		String [] popName = {"Coke", "7-Up", "Crush", "RootBeer", "Water"};
+		
+		HardwareSimulator VendingMachine = new HardwareSimulator(validValues, popCost, popName);
+		
+
+		int maxPopRacks = VendingMachine.getNumberOfPopCanRacks();
+		for(int i = 0; i < maxPopRacks; i++ ){
+			//registering the pop can racks to listen to the button selections
+			VendingMachine.getSelectionButton(i).register(VendingMachine.getPopCanRack(i));
+			//registering the display to listen to the pop can racks
+			VendingMachine.getPopCanRack(i).register(VendingMachine.getDisplay());
+		}
+		
+		
+		
+		
+		
+		
 	}
 	
 	

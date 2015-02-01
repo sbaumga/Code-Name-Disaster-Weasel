@@ -5,7 +5,7 @@ package org.lsmr.vendingmachine.simulator;
  * simulation. A very long string might scroll continuously, for example.
  */
 public class DisplaySimulator extends
-        AbstractHardware<DisplaySimulatorListener> implements CoinReceptacleListener {
+        AbstractHardware<DisplaySimulatorListener> implements CoinReceptacleListener,PopCanRackListener {
     private String message = null;
 
     /**
