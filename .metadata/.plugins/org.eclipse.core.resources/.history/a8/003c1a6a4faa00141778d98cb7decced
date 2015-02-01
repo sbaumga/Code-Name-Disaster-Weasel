@@ -94,8 +94,7 @@ public class DisplaySimulator extends
 
 	@Override
 	public void popEmpty(PopCanRackSimulator popRack) {
-		// when pop rack is empty display out of product message for 5 seconds
-		// then display old message
+		// when pop rack is empty display
 		final String oldMsg = message;
 		Timer timer = new Timer();
 		display("Out of product");
@@ -103,6 +102,6 @@ public class DisplaySimulator extends
 			public void run() {
 				display(oldMsg);
 			}
-		}, 5000); // 5000 = time to wait in milliseconds
+		}, 5000);
 	}
 }

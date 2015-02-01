@@ -103,6 +103,6 @@ public class DisplaySimulator extends
 			public void run() {
 				display(oldMsg);
 			}
-		}, 5000); // 5000 = time to wait in milliseconds
+		}, 5000);
 	}
 }

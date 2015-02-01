@@ -17,6 +17,7 @@ public class DisplaySimulator extends
     public void display(String msg) {
 	String oldMsg = message;
 	message = msg;
+	System.out.println(message);
 	notifyMessageChange(oldMsg, msg);
     }
 

@@ -6,6 +6,15 @@ package org.lsmr.vendingmachine.simulator;
  */
 public class SelectionButtonSimulator extends
         AbstractHardware<SelectionButtonSimulatorListener> {
+	private boolean isReturn;
+	
+	public SelectionButtonSimulator(boolean isRet) {
+		isReturn = isRet;
+	}
+	
+	public boolean getIsReturn(){
+		return isReturn;
+	}
 	
     /**
      * Simulates the pressing of the button. Notifies its listeners of a

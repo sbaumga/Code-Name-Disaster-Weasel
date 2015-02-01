@@ -11,7 +11,7 @@ import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 public class Test {
 
 	public static void main(String[] args) {
-		testTimer();		
+		testReturnCoins();		
 	}
 	
 	//simulates inputting a valid coin into the slot
@@ -53,7 +53,7 @@ public class Test {
 	
 	//tests returning coins in the receptacle to the user
 	public static void testReturnCoins() {
-		SelectionButtonSimulator returnBtn = new SelectionButtonSimulator();
+		SelectionButtonSimulator returnBtn = new SelectionButtonSimulator(true);
 		//where the coins go from the coin slot
 		CoinReceptacleSimulator receptacle = new CoinReceptacleSimulator(50);
 		//preloading receptacle with a quarter
@@ -76,15 +76,6 @@ public class Test {
 		
 		//button gets pressed
 		returnBtn.press();		
-	}
-	
-	
-	//Tests the timer in the display for when the machine is out of a product
-	public static void testTimer() {
-		DisplaySimulator display = new DisplaySimulator();
-		display.display("initial message");
-		
-		display.popEmpty(null);
 	}
 	
 	

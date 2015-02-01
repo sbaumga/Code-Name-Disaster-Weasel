@@ -11,6 +11,8 @@ import java.util.Map;
  * coins entered by the user;</li>
  * <li>one coin receptacle (called the storage bin) to store coins that have
  * been accepted as payment;</li>
+ * <li>a set of zero or more coin racks (the number and the denomination of
+ * coins stored by each is specified in the constructor);</li>
  * <li>one delivery chute used to deliver pop cans and to return coins;</li>
  * <li>a set of zero or more pop can racks (the number, cost, and pop name
  * stored in each is specified in the constructor);</li>
@@ -43,7 +45,7 @@ import java.util.Map;
  * number of pop cans that can be stored therein). In some cases, this is a
  * simplification of the physical reality for the sake of simulation.
  */
-public class HardwareSimulator implements CoinReceptacleListener, SelectionButtonSimulatorListener {
+public class HardwareSimulator implements CoinReceptacleListener {
     private boolean safetyOn = false;
 
     private CoinSlotSimulator coinSlot;
@@ -104,7 +106,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 
 	buttons = new SelectionButtonSimulator[popNames.length];
 	for(int i = 0; i < popNames.length; i++)
-	    buttons[i] = new SelectionButtonSimulator();
+	    buttons[i] = new SelectionButtonSimulator(false);
 
 	coinSlot.connect(new CoinChannelSimulator(receptacle), new CoinChannelSimulator(deliveryChute));
 	receptacle.connect(null, new CoinChannelSimulator(deliveryChute), new CoinChannelSimulator(storageBin));
@@ -239,17 +241,16 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
     public DisplaySimulator getDisplay() {
 	return display;
     }
-    
 
 	@Override
 	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the hardware is enabled
+		// Should not need to do anything when the receptacle is enabled
 		
 	}
 
 	@Override
 	public void disabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// Should not need to do anything when the hardware is disabled
+		// Should not need to do anything when the receptacle is disabled
 		
 	}
 
@@ -280,23 +281,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	@Override
 	public void disabled(CoinReceptacleSimulator receptacle) {
 		// Should not need to do anything when the receptacle is disabled
-		
-	}
-
-	@Override
-	public void pressed(SelectionButtonSimulator button) {
-		// TODO implement this
-		// match button to an element in the buttons array
-		// get pop rack from popCanRacks at the same index as the button in the button array
-		// get price of pop in that rack
-		// get value of coins in the receptacle
-		// if the value of coins in the receptacle >= price of pop
-		// store coins in receptacle
-		// dispense pop
-		// otherwise
-		// change display message to price of pop
-		// after five seconds change message back
-		// (see the popEmpty in display for an example of how to do this)
 		
 	}
 }
