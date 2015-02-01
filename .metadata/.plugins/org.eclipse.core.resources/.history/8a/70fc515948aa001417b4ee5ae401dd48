@@ -57,7 +57,7 @@ public class HardwareSimulator implements CoinReceptacleListener {
     private IndicatorLightSimulator outOfOrderLight;
 
     protected static int deliveryChuteCapacity = 20;
-    protected static int coinReceptableCapacity = 1000;
+    protected static int coinReceptableCapacity = 50;
     protected static int storageBinCapacity = 1000;
     protected static int coinRackCapacity = 20;
     protected static int popRackCapacity = 15;
@@ -114,10 +114,9 @@ public class HardwareSimulator implements CoinReceptacleListener {
 	outOfOrderLight = new IndicatorLightSimulator();
 	
 	receptacle.register(display);
-	for (PopCanRackSimulator rack: popCanRacks)
-		rack.register(display);
-	storageBin.register(this);
-	
+	for (PopCanRack rack: popCanRacks) {
+		
+	}
     }
 
     /**

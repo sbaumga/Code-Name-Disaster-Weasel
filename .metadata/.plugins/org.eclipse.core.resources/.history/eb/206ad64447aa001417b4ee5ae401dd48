@@ -97,12 +97,9 @@ public class PopCanRackSimulator extends AbstractHardware<PopCanRackListener> {
 	if(isDisabled())
 	    throw new DisabledException();
 
-	if(queue.isEmpty()) {
-		// notify listeners when pop rack is empty before exception is thrown
-		notifyPopEmpty();
+	if(queue.isEmpty())
 	    throw new EmptyException();
-	}
-	    
+
 	PopCan pop = queue.remove();
 	notifyPopRemoved(pop);
 

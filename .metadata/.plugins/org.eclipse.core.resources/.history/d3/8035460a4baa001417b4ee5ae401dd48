@@ -98,13 +98,12 @@ public class DisplaySimulator extends
 		String oldMsg = message;
 		Timer timer = new Timer();
 		display("Out of product");
-		/*
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				
 			}
 		}, 5 * 1000);
-		*/
+		
 	}
 }

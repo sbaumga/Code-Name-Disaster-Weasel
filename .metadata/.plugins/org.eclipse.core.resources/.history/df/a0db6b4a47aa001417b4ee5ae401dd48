@@ -1,13 +1,11 @@
 package org.lsmr.vendingmachine.simulator;
 
-import java.util.Timer;
-
 /**
  * A simple device that displays a string. How it does this is not part of the
  * simulation. A very long string might scroll continuously, for example.
  */
 public class DisplaySimulator extends
-        AbstractHardware<DisplaySimulatorListener> implements CoinReceptacleListener, PopCanRackListener {
+        AbstractHardware<DisplaySimulatorListener> implements CoinReceptacleListener {
     private String message = null;
 
     /**
@@ -60,7 +58,7 @@ public class DisplaySimulator extends
 
 	@Override
 	public void coinsFull(CoinReceptacleSimulator receptacle) {
-		// Should not need to do anything when receptacl is full
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -72,39 +70,5 @@ public class DisplaySimulator extends
 	@Override
 	public void disabled(CoinReceptacleSimulator receptacle) {
 		//nothing needs to be done with display when receptacle is disabled
-	}
-
-	@Override
-	public void popAdded(PopCanRackSimulator popRack, PopCan pop) {
-		// nothing needs to be done when a pop is added
-		
-	}
-
-	@Override
-	public void popRemoved(PopCanRackSimulator popRack, PopCan pop) {
-		// nothing needs to be done when a pop is removed
-		
-	}
-
-	@Override
-	public void popFull(PopCanRackSimulator popRack) {
-		// nothing needs to be done when a pop rack is full
-		
-	}
-
-	@Override
-	public void popEmpty(PopCanRackSimulator popRack) {
-		// when pop rack is empty display
-		String oldMsg = message;
-		Timer timer = new Timer();
-		display("Out of product");
-		/*
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				
-			}
-		}, 5 * 1000);
-		*/
 	}
 }

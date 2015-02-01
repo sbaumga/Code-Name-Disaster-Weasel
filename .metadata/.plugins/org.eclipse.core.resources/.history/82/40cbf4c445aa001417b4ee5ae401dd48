@@ -51,6 +51,7 @@ public class Test {
 				
 	}
 	
+	//unfinished
 	//tests returning coins in the receptacle to the user
 	public static void testReturnCoins() {
 		SelectionButtonSimulator returnBtn = new SelectionButtonSimulator(true);
