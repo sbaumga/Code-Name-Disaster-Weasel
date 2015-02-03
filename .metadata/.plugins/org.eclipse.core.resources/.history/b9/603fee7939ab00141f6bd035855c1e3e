@@ -12,7 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import org.lsmr.vendingmachine.simulator.*;
+import org.lsmr.vendingmachine.simulator.AbstractHardware;
+import org.lsmr.vendingmachine.simulator.AbstractHardwareListener;
+import org.lsmr.vendingmachine.simulator.DisplaySimulator;
+import org.lsmr.vendingmachine.simulator.DisplaySimulatorListener;
+import org.lsmr.vendingmachine.simulator.HardwareSimulator;
+import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 
 public class Vending  implements  ActionListener, DisplaySimulatorListener {
     final static boolean shouldFill = true;
@@ -121,9 +126,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	//c.gridwidth = 1;   //2 columns wide
 	c.gridy = 2;       //third row
 	pane.add(br, c);
-	
-	//registers the gui to listen to the display
-	machine.getDisplay().register(this);
     }
 
     
@@ -248,12 +250,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
         }
 		else if(e.getSource() == b20)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(5));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$0.05 pressed");
 			buttonNum = 7;
         }
 //		else if(e.getSource() == b21)
@@ -263,52 +260,27 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 //        }
 		else if(e.getSource() == b22)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(10));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$0.10 pressed");
 			buttonNum = 9;
         }
 		else if(e.getSource() == b23)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(25));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$0.25 pressed");
 			buttonNum = 10;
         }
 		else if(e.getSource() == b24)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(100));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$1 pressed");
 			buttonNum = 11;
         }
 		else if(e.getSource() == b25)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(200));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$2 pressed");
 			buttonNum = 12;
         }
 		else if(e.getSource() == b26)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(50));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("InvaildCoin pressed");
 			buttonNum = 13 ;
         }
 	}

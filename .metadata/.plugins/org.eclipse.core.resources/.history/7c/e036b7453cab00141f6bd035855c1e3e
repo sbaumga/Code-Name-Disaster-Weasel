@@ -1,7 +1,6 @@
 package org.lsmr.vendingmachine.simulator;
 
 import java.util.*;
-import java.text.DecimalFormat;
 
 /**
  * A simple device that displays a string. How it does this is not part of the

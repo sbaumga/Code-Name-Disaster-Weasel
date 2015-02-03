@@ -254,6 +254,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			text.setText("$0.05 pressed");
 			buttonNum = 7;
         }
 //		else if(e.getSource() == b21)
@@ -263,52 +264,27 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 //        }
 		else if(e.getSource() == b22)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(10));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$0.10 pressed");
 			buttonNum = 9;
         }
 		else if(e.getSource() == b23)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(25));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$0.25 pressed");
 			buttonNum = 10;
         }
 		else if(e.getSource() == b24)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(100));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$1 pressed");
 			buttonNum = 11;
         }
 		else if(e.getSource() == b25)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(200));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("$2 pressed");
 			buttonNum = 12;
         }
 		else if(e.getSource() == b26)
         {
-			try {
-				machine.getCoinSlot().addCoin(new Coin(50));
-			} catch (DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			text.setText("InvaildCoin pressed");
 			buttonNum = 13 ;
         }
 	}
