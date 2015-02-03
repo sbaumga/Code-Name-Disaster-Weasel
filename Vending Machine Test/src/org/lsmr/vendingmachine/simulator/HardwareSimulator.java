@@ -359,6 +359,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		} else if (receptacle.getTotalValue() > popCanRacks[IndexOfPressedButton].getPrice()) {
 			int moneyBack = receptacle.getTotalValue() - popCanRacks[IndexOfPressedButton].getPrice();
 			
@@ -369,130 +370,135 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 				e1.printStackTrace();
 			}
 			
-			//get number of toonies to be returned
-			int numOfToonies = moneyBack / 200;
-			//getting the amount of money to be returned without the toonies
-			moneyBack = moneyBack % 200; 
-			//similar to above
-			int numOfLoonies = moneyBack / 100;
-			moneyBack = moneyBack % 100;
-			int numOfQuarters = moneyBack / 25;
-			moneyBack = moneyBack % 25;
-			int numOfDimes = moneyBack / 10;
-			moneyBack = moneyBack % 10;
-			int numOfNickels = moneyBack / 5;
-			
-			// TODO: remove this as it probably won't be used
-			moneyBack = 0;
-			
-			//While $2 values need to be returned and there are $2 coins that can be returned
-			//return $2 coins 
-			while (numOfToonies != 0 && !coinRacks[4].rackEmpty()) {
-				try {
-					coinRacks[4].releaseCoin();
-					numOfToonies -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			//If there are $2 values to be returned and all $2 coins have been used
-			//set 2 $1 coins to be returned for each $2 coin
-			if (numOfToonies != 0) {
-				numOfLoonies += numOfToonies * 2;
-			}
-			
-			//Similar logic to above
-			while (numOfLoonies != 0 && !coinRacks[3].rackEmpty()) {
-				try {
-					coinRacks[3].releaseCoin();
-					numOfLoonies -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfLoonies != 0) {
-				numOfQuarters += numOfLoonies * 4;
-			}
-			
-			while (numOfQuarters != 0 && !coinRacks[2].rackEmpty()) {
-				try {
-					coinRacks[2].releaseCoin();
-					numOfQuarters -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfQuarters != 0) {
-				numOfDimes += numOfQuarters * 2;
-				numOfNickels += numOfQuarters;
-			}
-			
-			while (numOfDimes != 0 && !coinRacks[1].rackEmpty()) {
-				try {
-					coinRacks[1].releaseCoin();
-					numOfDimes -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfDimes != 0) {
-				numOfNickels += numOfDimes * 2;
-			}
-			
-			while (numOfNickels != 0 && !coinRacks[0].rackEmpty()) {
-				try {
-					coinRacks[0].releaseCoin();
-					numOfNickels -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			// TODO figure out what goes here
-			if (numOfNickels != 0) {
+			// If exactChangeLight is On, do not go into the if-else statement. 
+			if(!exactChangeLight.isActive()){
 				
+				//get number of toonies to be returned
+				int numOfToonies = moneyBack / 200;
+				//getting the amount of money to be returned without the toonies
+				moneyBack = moneyBack % 200; 
+				//similar to above
+				int numOfLoonies = moneyBack / 100;
+				moneyBack = moneyBack % 100;
+				int numOfQuarters = moneyBack / 25;
+				moneyBack = moneyBack % 25;
+				int numOfDimes = moneyBack / 10;
+				moneyBack = moneyBack % 10;
+				int numOfNickels = moneyBack / 5;
+				
+				// TODO: remove this as it probably won't be used
+				moneyBack = 0;
+				
+				//While $2 values need to be returned and there are $2 coins that can be returned
+				//return $2 coins 
+				while (numOfToonies != 0 && !coinRacks[4].rackEmpty()) {
+					try {
+						coinRacks[4].releaseCoin();
+						numOfToonies -= 1;
+					} catch (CapacityExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EmptyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (DisabledException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				//If there are $2 values to be returned and all $2 coins have been used
+				//set 2 $1 coins to be returned for each $2 coin
+				if (numOfToonies != 0) {
+					numOfLoonies += numOfToonies * 2;
+				}
+				
+				//Similar logic to above
+				while (numOfLoonies != 0 && !coinRacks[3].rackEmpty()) {
+					try {
+						coinRacks[3].releaseCoin();
+						numOfLoonies -= 1;
+					} catch (CapacityExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EmptyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (DisabledException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				if (numOfLoonies != 0) {
+					numOfQuarters += numOfLoonies * 4;
+				}
+				
+				while (numOfQuarters != 0 && !coinRacks[2].rackEmpty()) {
+					try {
+						coinRacks[2].releaseCoin();
+						numOfQuarters -= 1;
+					} catch (CapacityExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EmptyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (DisabledException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				if (numOfQuarters != 0) {
+					numOfDimes += numOfQuarters * 2;
+					numOfNickels += numOfQuarters;
+				}
+				
+				while (numOfDimes != 0 && !coinRacks[1].rackEmpty()) {
+					try {
+						coinRacks[1].releaseCoin();
+						numOfDimes -= 1;
+					} catch (CapacityExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EmptyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (DisabledException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				if (numOfDimes != 0) {
+					numOfNickels += numOfDimes * 2;
+				}
+				
+				while (numOfNickels != 0 && !coinRacks[0].rackEmpty()) {
+					try {
+						coinRacks[0].releaseCoin();
+						numOfNickels -= 1;
+					} catch (CapacityExceededException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (EmptyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (DisabledException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				// Activate the exactChangeLight.
+				// After exactChangeLight is activated, the machine will not produce changes anymore.
+				if (numOfNickels != 0) {
+					exactChangeLight.activate();
+				}
 			}
 			
-			// dispense pop to deliver chute
+			// dispense pop to delivery chute
 			try {
 				getPopCanRack(elementcounter).dispensePop();
 			} catch (DisabledException | EmptyException | CapacityExceededException e) {

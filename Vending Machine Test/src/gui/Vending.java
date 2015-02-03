@@ -19,7 +19,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
     final static boolean shouldWeightX = true;
     final static boolean RIGHT_TO_LEFT = false;    
 
-     JButton b1,b2,b3,b4,b5,b6,br;// all pop buttons and return button (br)
+     JButton b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,br;// all pop buttons and return button (br)
      JButton b20,b21,b22,b23,b24,b25,b26; // all money buttons
      JFrame frame, f2; // frame is Vending Machine Frame, f2 is for wallet
      JTextField text;  // display area
@@ -30,6 +30,9 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
     		 "Dr. Pepper", "Crush", "Gatorade"};
      
      private HardwareSimulator machine = new HardwareSimulator(validValues , popPrices, popNames);
+     private SelectionButtonSimulator [] selectionBtns = null;
+     private SelectionButtonSimulator returnBtn = null;
+     
      
   
      
@@ -96,6 +99,37 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b6, c);
 
+	b7 = new JButton(popNames[6]);
+	b7.addActionListener(this);
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx = 0.5;
+	c.gridx = 6;
+	c.gridy = 0;
+	pane.add(b7, c);
+
+	b8 = new JButton(popNames[7]);
+	b8.addActionListener(this);
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx = 0.5;
+	c.gridx = 7;
+	c.gridy = 0;
+	pane.add(b8, c);
+	
+	b9 = new JButton(popNames[8]);
+	b9.addActionListener(this);
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx = 0.5;
+	c.gridx = 8;
+	c.gridy = 0;
+	pane.add(b9, c);
+
+	b10 = new JButton(popNames[9]);
+	b10.addActionListener(this);
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx = 0.5;
+	c.gridx = 9;
+	c.gridy = 0;
+	pane.add(b10, c);
 	
 	
 	text = new JTextField("display");
@@ -151,17 +185,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b20, c);
 
-	
-//	b21 = new JButton("$0.10");
-//	b21.addActionListener(this);
-//	if (shouldWeightX) {
-//	c.weightx = 0.5;
-//	}
-//	c.fill = GridBagConstraints.HORIZONTAL;
-//	c.gridx = 0;
-//	c.gridy = 0;
-//	pane.add(b21, c);
-
 	b22 = new JButton("$0.10");
 	b22.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
@@ -211,41 +234,65 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		int buttonNum;
+		for(int i = 0; i < popNames.length; i++){
+			selectionBtns[i] = new SelectionButtonSimulator();
+		}
+		returnBtn = new SelectionButtonSimulator();
+		
 		if(e.getSource() == b1)
         {
 			text.setText("pop1 pressed");
-			buttonNum = 0;
+			machine.pressed(selectionBtns[0]);
         }
 		else if(e.getSource() == b2)
         {
 			text.setText("pop2 pressed");
-			buttonNum = 1;
+			machine.pressed(selectionBtns[1]);
         }
 		else if(e.getSource() == b3)
         {
 			text.setText("pop3 pressed");
-			buttonNum = 2;
+			machine.pressed(selectionBtns[2]);
         }
 		else if(e.getSource() == b4)
         {
 			text.setText("pop4 pressed");
-			buttonNum = 3;
+			machine.pressed(selectionBtns[3]);
         }
 		else if(e.getSource() == b5)
         {
 			text.setText("pop5 pressed");
-			buttonNum = 4;
+			machine.pressed(selectionBtns[4]);
         }
 		else if(e.getSource() == b6)
         {
 			text.setText("pop6 pressed");
-			buttonNum = 5;
+			machine.pressed(selectionBtns[5]);
+        }
+		else if(e.getSource() == b7)
+        {
+			text.setText("pop7 pressed");
+			machine.pressed(selectionBtns[6]);
+        }
+		else if(e.getSource() == b8)
+        {
+			text.setText("pop8 pressed");
+			machine.pressed(selectionBtns[7]);
+        }
+		else if(e.getSource() == b9)
+        {
+			text.setText("pop9 pressed");
+			machine.pressed(selectionBtns[8]);
+        }
+		else if(e.getSource() == b10)
+        {
+			text.setText("pop10 pressed");
+			machine.pressed(selectionBtns[9]);
         }
 		else if(e.getSource() == br)
         {
 			text.setText("return pressed");
-			buttonNum = 6;
+			machine.pressed(returnBtn);
         }
 		else if(e.getSource() == b20)
         {
@@ -255,13 +302,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 7;
         }
-//		else if(e.getSource() == b21)
-//        {
-//			text.setText("$0.10 pressed");
-//			buttonNum = 8;
-//        }
 		else if(e.getSource() == b22)
         {
 			try {
@@ -270,7 +311,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 9;
         }
 		else if(e.getSource() == b23)
         {
@@ -280,7 +320,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 10;
         }
 		else if(e.getSource() == b24)
         {
@@ -290,7 +329,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 11;
         }
 		else if(e.getSource() == b25)
         {
@@ -300,7 +338,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 12;
         }
 		else if(e.getSource() == b26)
         {
@@ -310,7 +347,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			buttonNum = 13 ;
         }
 	}
     
