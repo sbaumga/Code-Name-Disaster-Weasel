@@ -46,7 +46,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 
     private CoinSlotSimulator coinSlot;
     private CoinReceptacleSimulator receptacle, storageBin;
-    private CoinRackSimulator[] coinRacks;
     private DeliveryChuteSimulator deliveryChute;
     private PopCanRackSimulator[] popCanRacks;
     private DisplaySimulator display;
@@ -346,7 +345,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 				public void run() {
 					display.display(oldMsg);
 				}
-			}, 4000); // 4000 = time to wait in milliseconds
+			}, 5000); // 5000 = time to wait in milliseconds
 				
 		}
 }
