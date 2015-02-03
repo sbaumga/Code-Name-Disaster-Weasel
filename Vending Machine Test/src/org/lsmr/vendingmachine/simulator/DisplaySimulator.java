@@ -11,6 +11,7 @@ public class DisplaySimulator extends
 		AbstractHardware<DisplaySimulatorListener> implements
 		CoinReceptacleListener, PopCanRackListener {
 	private String message = null;
+	private DecimalFormat df = new DecimalFormat("#.00");
 
 	/**
 	 * Tells the display to start displaying the indicated message. Announces a
@@ -55,7 +56,7 @@ public class DisplaySimulator extends
 	@Override
 	// Sets the display message to be the value of all coins in the receptacle
 	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
-		display('$' + Double.toString(receptacle.getTotalValue() * 0.01));
+		display('$' + df.format((double)receptacle.getTotalValue() * 0.01));
 	}
 
 	@Override
