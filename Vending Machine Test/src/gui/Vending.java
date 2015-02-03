@@ -17,7 +17,7 @@ import org.lsmr.vendingmachine.simulator.*;
 public class Vending  implements  ActionListener, DisplaySimulatorListener {
     final static boolean shouldFill = true;
     final static boolean shouldWeightX = true;
-    final static boolean RIGHT_TO_LEFT = false;
+    final static boolean RIGHT_TO_LEFT = false;    
 
      JButton b1,b2,b3,b4,b5,b6,br;// all pop buttons and return button (br)
      JButton b20,b21,b22,b23,b24,b25,b26; // all money buttons
@@ -45,7 +45,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.fill = GridBagConstraints.HORIZONTAL;
 	}
 
-	b1 = new JButton("1");
+	b1 = new JButton(popNames[0]);
 	b1.addActionListener(this);
 	if (shouldWeightX) {
 	c.weightx = 0.5;
@@ -55,7 +55,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b1, c);
 
-	b2 = new JButton("2");
+	b2 = new JButton(popNames[1]);
 	b2.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
 	c.weightx = 0.5;
@@ -63,7 +63,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b2, c);
 
-	b3 = new JButton("3");
+	b3 = new JButton(popNames[2]);
 	b3.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
 	c.weightx = 0.5;
@@ -71,7 +71,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b3, c);
 
-	b4 = new JButton("4");
+	b4 = new JButton(popNames[3]);
 	b4.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
 	c.weightx = 0.5;
@@ -79,7 +79,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b4, c);
 
-	b5 = new JButton("5");
+	b5 = new JButton(popNames[4]);
 	b5.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
 	c.weightx = 0.5;
@@ -87,7 +87,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 0;
 	pane.add(b5, c);
 
-	b6 = new JButton("6");
+	b6 = new JButton(popNames[5]);
 	b6.addActionListener(this);
 	c.fill = GridBagConstraints.HORIZONTAL;
 	c.weightx = 0.5;
@@ -338,7 +338,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
         frame.setVisible(true);
         f2.setVisible(true);
 //        f2.setSize(100, 30);
-        f2.setLocation(500, 100);
+        f2.setLocation(600, 100);
        
     }
 
