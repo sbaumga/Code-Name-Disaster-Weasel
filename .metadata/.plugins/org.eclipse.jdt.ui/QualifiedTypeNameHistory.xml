@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.lsmr.vendingmachine.simulator.DisplaySimulatorListener"/>
+<fullyQualifiedTypeName name="org.lsmr.vendingmachine.simulator.HardwareSimulator"/>
+<fullyQualifiedTypeName name="org.lsmr.vendingmachine.simulator.Coin"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+</qualifiedTypeNameHistroy>

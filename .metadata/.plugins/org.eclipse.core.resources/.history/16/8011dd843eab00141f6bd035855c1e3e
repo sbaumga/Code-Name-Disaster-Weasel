@@ -55,7 +55,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
     private DisplaySimulator display;
     private SelectionButtonSimulator[] buttons;
     private SelectionButtonSimulator returnButton;
-    private IndicatorLightSimulator exactChangeLight, outOfOrderLight;
+    private IndicatorLightSimulator outOfOrderLight;
 
     protected static int deliveryChuteCapacity = 20;
     //this is set high to ensure that this case will not occur often
@@ -118,9 +118,8 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	    buttons[i] = new SelectionButtonSimulator();
 	returnButton = new SelectionButtonSimulator();
 	coinSlot.connect(new CoinChannelSimulator(receptacle), new CoinChannelSimulator(deliveryChute));
-	receptacle.connect(coinRackChannels, new CoinChannelSimulator(deliveryChute), new CoinChannelSimulator(storageBin));
+	receptacle.connect(null, new CoinChannelSimulator(deliveryChute), new CoinChannelSimulator(storageBin));
 
-	exactChangeLight = new IndicatorLightSimulator();
 	outOfOrderLight = new IndicatorLightSimulator();
 	
 	receptacle.register(display);
@@ -140,6 +139,9 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
     public void enableSafety() {
 	safetyOn = true;
 	coinSlot.disable();
+	// TODO: actually remove this
+	//coins entered need to be returned, so this cannot be disabled
+	//deliveryChute.disable();
 	
 	display.display("Out of order");
 
@@ -228,25 +230,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
     public DeliveryChuteSimulator getDeliveryChute() {
 	return deliveryChute;
     }
-    
-    /**
-     * Returns the number of coin racks.
-     */
-    public int getNumberOfCoinRacks() {
-	return coinRacks.length;
-    }
 
-    /**
-     * Returns a coin rack at the indicated index.
-     * 
-     * @param index
-     *            The index of the desired coin rack.
-     * @throws IndexOutOfBoundsException
-     *             if the index < 0 or the index >= number of coin racks.
-     */
-    public CoinRackSimulator getCoinRack(int index) {
-	return coinRacks[index];
-    }
 
     /**
      * Returns the number of pop can racks.
@@ -317,17 +301,20 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 		
 	}
 
-	/**
-	 * When a selection button is pressed, the machine will check if the value of the coins in the 
-	 * receptacle is enough for the pop corresponding to the button being pressed. If the coins
-	 * are not enough, the correct price is shown on the display for 4 seconds, then the display
-	 * will show the old message. If the coins are exactly enough, then the coins are moved to
-	 * permanent storage and the correct pop is given to the user. If the coins are too much, 
-	 * the coins are stored, any extra value is returned to the user if available in coins and
-	 * the correct pop is dispensed
-	 */
 	@Override
 	public void pressed(SelectionButtonSimulator button) {
+		// TODO implement this
+		// match button to an element in the buttons array
+		// get pop rack from popCanRacks at the same index as the button in the button array
+		// get price of pop in that rack
+		// get value of coins in the receptacle
+		// if the value of coins in the receptacle >= price of pop
+		// store coins in receptacle
+		// dispense pop
+		// otherwise
+		// change display message to price of pop
+		// after five seconds change message back
+		// (see the popEmpty in display for an example of how to do this)
 		
 		// use loop to find the index of the pressed button for dispensing the correct pop
 		int IndexOfPressedButton = 6, elementcounter = 0;
@@ -341,7 +328,7 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 		}
 		
 		
-		if(receptacle.getTotalValue() == popCanRacks[IndexOfPressedButton].getPrice()){
+		if(receptacle.getTotalValue()>= popCanRacks[IndexOfPressedButton].getPrice()){
 			
 			// sufficient amount
 			// store coins to permanent storage	
@@ -359,147 +346,6 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if (receptacle.getTotalValue() > popCanRacks[IndexOfPressedButton].getPrice()) {
-			int moneyBack = receptacle.getTotalValue() - popCanRacks[IndexOfPressedButton].getPrice();
-			
-			try {
-				receptacle.storeCoins();
-			} catch (CapacityExceededException | DisabledException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			//get number of toonies to be returned
-			int numOfToonies = moneyBack / 200;
-			//getting the amount of money to be returned without the toonies
-			moneyBack = moneyBack % 200; 
-			//similar to above
-			int numOfLoonies = moneyBack / 100;
-			moneyBack = moneyBack % 100;
-			int numOfQuarters = moneyBack / 25;
-			moneyBack = moneyBack % 25;
-			int numOfDimes = moneyBack / 10;
-			moneyBack = moneyBack % 10;
-			int numOfNickels = moneyBack / 5;
-			
-			// TODO: remove this as it probably won't be used
-			moneyBack = 0;
-			
-			//While $2 values need to be returned and there are $2 coins that can be returned
-			//return $2 coins 
-			while (numOfToonies != 0 && !coinRacks[4].rackEmpty()) {
-				try {
-					coinRacks[4].releaseCoin();
-					numOfToonies -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			//If there are $2 values to be returned and all $2 coins have been used
-			//set 2 $1 coins to be returned for each $2 coin
-			if (numOfToonies != 0) {
-				numOfLoonies += numOfToonies * 2;
-			}
-			
-			//Similar logic to above
-			while (numOfLoonies != 0 && !coinRacks[3].rackEmpty()) {
-				try {
-					coinRacks[3].releaseCoin();
-					numOfLoonies -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfLoonies != 0) {
-				numOfQuarters += numOfLoonies * 4;
-			}
-			
-			while (numOfQuarters != 0 && !coinRacks[2].rackEmpty()) {
-				try {
-					coinRacks[2].releaseCoin();
-					numOfQuarters -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfQuarters != 0) {
-				numOfDimes += numOfQuarters * 2;
-				numOfNickels += numOfQuarters;
-			}
-			
-			while (numOfDimes != 0 && !coinRacks[1].rackEmpty()) {
-				try {
-					coinRacks[1].releaseCoin();
-					numOfDimes -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			if (numOfDimes != 0) {
-				numOfNickels += numOfDimes * 2;
-			}
-			
-			while (numOfNickels != 0 && !coinRacks[0].rackEmpty()) {
-				try {
-					coinRacks[0].releaseCoin();
-					numOfNickels -= 1;
-				} catch (CapacityExceededException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (EmptyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (DisabledException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			// TODO figure out what goes here
-			if (numOfNickels != 0) {
-				
-			}
-			
-			// dispense pop to deliver chute
-			try {
-				getPopCanRack(elementcounter).dispensePop();
-			} catch (DisabledException | EmptyException | CapacityExceededException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}else{
 			
 			// insufficient money

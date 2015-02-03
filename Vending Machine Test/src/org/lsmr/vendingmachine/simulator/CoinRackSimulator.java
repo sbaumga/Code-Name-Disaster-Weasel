@@ -125,6 +125,14 @@ public class CoinRackSimulator extends AbstractHardware<CoinRackListener>
     public boolean hasSpace() {
 	return queue.size() < maxCapacity;
     }
+    
+    /**
+     * Returns if this coin rack is empty
+     * @return true if this rack is empty, false otherwise
+     */
+    public boolean rackEmpty() {
+    	return queue.isEmpty();
+    }
 
     private void notifyCoinAdded(Coin coin) {
 	Class<?>[] parameterTypes =
