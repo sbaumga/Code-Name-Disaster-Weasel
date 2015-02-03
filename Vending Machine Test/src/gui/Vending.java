@@ -30,11 +30,7 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
     		 "Dr. Pepper", "Crush", "Gatorade"};
      
      private HardwareSimulator machine = new HardwareSimulator(validValues , popPrices, popNames);
-     private SelectionButtonSimulator [] selectionBtns = null;
-     private SelectionButtonSimulator returnBtn = null;
-     
-     
-  
+
      
      
     public  void addComponentsToPane(Container pane) {
@@ -234,65 +230,61 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
-		for(int i = 0; i < popNames.length; i++){
-			selectionBtns[i] = new SelectionButtonSimulator();
-		}
-		returnBtn = new SelectionButtonSimulator();
 		
 		if(e.getSource() == b1)
         {
 			text.setText("pop1 pressed");
-			machine.pressed(selectionBtns[0]);
+			machine.getSelectionButton(0).press();
         }
 		else if(e.getSource() == b2)
         {
 			text.setText("pop2 pressed");
-			machine.pressed(selectionBtns[1]);
+			machine.getSelectionButton(1).press();
         }
 		else if(e.getSource() == b3)
         {
 			text.setText("pop3 pressed");
-			machine.pressed(selectionBtns[2]);
+			machine.getSelectionButton(2).press();
         }
 		else if(e.getSource() == b4)
         {
 			text.setText("pop4 pressed");
-			machine.pressed(selectionBtns[3]);
+			machine.getSelectionButton(3).press();
         }
 		else if(e.getSource() == b5)
         {
 			text.setText("pop5 pressed");
-			machine.pressed(selectionBtns[4]);
+			machine.getSelectionButton(4).press();
         }
 		else if(e.getSource() == b6)
         {
 			text.setText("pop6 pressed");
-			machine.pressed(selectionBtns[5]);
+			machine.getSelectionButton(5).press();
         }
 		else if(e.getSource() == b7)
         {
 			text.setText("pop7 pressed");
-			machine.pressed(selectionBtns[6]);
+			machine.getSelectionButton(6).press();
         }
 		else if(e.getSource() == b8)
         {
 			text.setText("pop8 pressed");
-			machine.pressed(selectionBtns[7]);
+			machine.getSelectionButton(7).press();
         }
 		else if(e.getSource() == b9)
         {
 			text.setText("pop9 pressed");
-			machine.pressed(selectionBtns[8]);
+			machine.getSelectionButton(8).press();
         }
 		else if(e.getSource() == b10)
         {
 			text.setText("pop10 pressed");
-			machine.pressed(selectionBtns[9]);
+			machine.getSelectionButton(9).press();
         }
 		else if(e.getSource() == br)
         {
 			text.setText("return pressed");
-			machine.pressed(returnBtn);
+			machine.getReturnButton().press();
         }
 		else if(e.getSource() == b20)
         {
