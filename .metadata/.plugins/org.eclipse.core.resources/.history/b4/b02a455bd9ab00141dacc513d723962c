@@ -157,20 +157,8 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	c.gridy = 2;       //third row
 	pane.add(br, c);
 	
-	//additional setup
 	//registers the gui to listen to the display
 	machine.getDisplay().register(this);
-	//adds pop to the racks
-	for (int i = 0; i < popPrices.length; i++){
-		PopCanRackSimulator rack = machine.getPopCanRack(i);
-		for (int j = 0; j < 5; j++) {
-			try {
-				rack.addPop(new PopCan());
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-	}
     }
 
     

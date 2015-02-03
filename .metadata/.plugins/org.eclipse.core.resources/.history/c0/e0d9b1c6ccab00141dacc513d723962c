@@ -123,16 +123,11 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 	exactChangeLight = new IndicatorLightSimulator();
 	outOfOrderLight = new IndicatorLightSimulator();
 	
-	//display listens to temporary storage of coins
 	receptacle.register(display);
-	//temporary storage of coins listens to the coin return button
 	returnButton.register(receptacle);
-	//the display listens to all of the pop racks
 	for (PopCanRackSimulator rack: popCanRacks)
 		rack.register(display);
-	//the hardware listens to the permanent storage bin
-	storageBin.register(this);
-	//the hardware listens to all of the pop buttons
+		storageBin.register(this);
 	for (SelectionButtonSimulator button: buttons)
 		button.register(this);
 	
