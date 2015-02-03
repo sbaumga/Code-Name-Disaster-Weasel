@@ -8,95 +8,95 @@ import java.text.DecimalFormat;
  * simulation. A very long string might scroll continuously, for example.
  */
 public class DisplaySimulator extends
-		AbstractHardware<DisplaySimulatorListener> implements
-		CoinReceptacleListener, PopCanRackListener {
-	private String message = null;
+        AbstractHardware<DisplaySimulatorListener> implements CoinReceptacleListener, PopCanRackListener {
+    private String message = null;
 
-	/**
-	 * Tells the display to start displaying the indicated message. Announces a
-	 * "messageChange" event to its listeners.
-	 */
-	public void display(String msg) {
-		String oldMsg = message;
-		message = msg;
-		notifyMessageChange(oldMsg, msg);
-	}
+    /**
+     * Tells the display to start displaying the indicated message. Announces a
+     * "messageChange" event to its listeners.
+     */
+    public void display(String msg) {
+	String oldMsg = message;
+	message = msg;
+	notifyMessageChange(oldMsg, msg);
+    }
 
-	/**
-	 * Permits the display message to be set without causing events to be
-	 * announced.
-	 */
-	public void loadWithoutEvents(String message) {
-		this.message = message;
-	}
+    /**
+     * Permits the display message to be set without causing events to be
+     * announced.
+     */
+    public void loadWithoutEvents(String message) {
+	this.message = message;
+    }
 
-	private void notifyMessageChange(String oldMsg, String newMsg) {
-		Class<?>[] parameterTypes = new Class<?>[] { DisplaySimulator.class,
-				String.class, String.class };
-		Object[] args = new Object[] { this, oldMsg, newMsg };
-		notifyListeners(DisplaySimulatorListener.class, "messageChange",
-				parameterTypes, args);
-	}
-
-	public String getMessage() {
-		return message;
-	}
+    private void notifyMessageChange(String oldMsg, String newMsg) {
+	Class<?>[] parameterTypes =
+	        new Class<?>[] { DisplaySimulator.class, String.class,
+	                String.class };
+	Object[] args = new Object[] { this, oldMsg, newMsg };
+	notifyListeners(DisplaySimulatorListener.class, "messageChange", parameterTypes, args);
+    }
+    
+    public String getMessage(){
+    	return message;
+    }
+    
+    
 
 	@Override
 	public void enabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// nothing needs to be done with display when receptacle is enabled
+		//nothing needs to be done with display when receptacle is enabled		
 	}
 
 	@Override
 	public void disabled(AbstractHardware<AbstractHardwareListener> hardware) {
-		// nothing needs to be done with display when receptacle is disabled
+		//nothing needs to be done with display when receptacle is disabled
 	}
 
 	@Override
-	// Sets the display message to be the value of all coins in the receptacle
+	//Sets the display message to be the value of all coins in the receptacle 
 	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
 		display('$' + Double.toString(receptacle.getTotalValue() * 0.01));
 	}
 
 	@Override
 	public void coinsRemoved(CoinReceptacleSimulator receptacle) {
-		// all coins should be removed at once, thus the display simply gets set
-		// to 0
+		//all coins should be removed at once, thus the display simply gets set to 0
 		display("$0.00");
 	}
 
 	@Override
 	public void coinsFull(CoinReceptacleSimulator receptacle) {
 		// Should not need to do anything when receptacl is full
-
+		
 	}
 
 	@Override
 	public void enabled(CoinReceptacleSimulator receptacle) {
-		// nothing needs to be done with display when receptacle is enabled
+		//nothing needs to be done with display when receptacle is enabled
 	}
 
 	@Override
 	public void disabled(CoinReceptacleSimulator receptacle) {
-		// nothing needs to be done with display when receptacle is disabled
+		//nothing needs to be done with display when receptacle is disabled
 	}
 
 	@Override
 	public void popAdded(PopCanRackSimulator popRack, PopCan pop) {
 		// nothing needs to be done when a pop is added
-
+		
 	}
 
 	@Override
 	public void popRemoved(PopCanRackSimulator popRack, PopCan pop) {
 		// nothing needs to be done when a pop is removed
-
+		
 	}
 
 	@Override
 	public void popFull(PopCanRackSimulator popRack) {
 		// nothing needs to be done when a pop rack is full
-
+		
 	}
 
 	@Override

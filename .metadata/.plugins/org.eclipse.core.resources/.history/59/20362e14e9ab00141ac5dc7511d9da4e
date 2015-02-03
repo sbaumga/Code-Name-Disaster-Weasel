@@ -15,143 +15,138 @@ import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 public class Test {
 
 	public static void main(String[] args) {
-		testChange();
+		testChange();		
 	}
-
-	// simulates inputting a valid coin into the slot
-	// moves coin from slot to channel to receptacle
-	// updates display to reflect new value of receptacle
+	
+	//simulates inputting a valid coin into the slot
+	//moves coin from slot to channel to receptacle
+	//updates display to reflect new value of receptacle
 	public static void testEnterCoin(int value) {
-		int[] validValues = { 5, 10, 25, 100, 200 };
-		// parameter is all values of coins that the machine will accept
+		int[] validValues = {5, 10, 25, 100, 200};
+		//parameter is all values of coins that the machine will accept
 		CoinSlotSimulator slot = new CoinSlotSimulator(validValues);
-		// parameter is capacity of the receptacle
-		// normal receptacle
+		//parameter is capacity of the receptacle
+		//normal receptacle
 		CoinReceptacleSimulator receptacle = new CoinReceptacleSimulator(50);
-		// parameter is the output for the coin channel
-		// channel from the slot to the normal receptacle
-		CoinChannelSimulator slotToReceptacle = new CoinChannelSimulator(
-				receptacle);
-		// receptacle for invalid coins
+		//parameter is the output for the coin channel
+		//channel from the slot to the normal receptacle
+		CoinChannelSimulator slotToReceptacle = new CoinChannelSimulator(receptacle);
+		//receptacle for invalid coins
 		CoinReceptacleSimulator garbage = new CoinReceptacleSimulator(50);
-		// channel from slot to garbage
+		//channel from slot to garbage
 		CoinChannelSimulator slotToGarbage = new CoinChannelSimulator(garbage);
 		DisplaySimulator display = new DisplaySimulator();
-
+		
 		receptacle.register(display);
-
-		// slotToReceptacle is where valid coins are sent, slotToGarbage is
-		// where invalid coins are sent
+		
+		//slotToReceptacle is where valid coins are sent, slotToGarbage is where invalid coins are sent
 		slot.connect(slotToReceptacle, slotToGarbage);
-
-		// the coin being entered
+		
+		//the coin being entered
 		Coin coin = new Coin(value);
-
+		
 		try {
-			// coin is entered
+			//coin is entered
 			slot.addCoin(coin);
 		} catch (DisabledException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+				
 	}
-
-	// tests returning coins in the receptacle to the user
+	
+	//tests returning coins in the receptacle to the user
 	public static void testReturnCoins() {
 		SelectionButtonSimulator returnBtn = new SelectionButtonSimulator();
-		// where the coins go from the coin slot
+		//where the coins go from the coin slot
 		CoinReceptacleSimulator receptacle = new CoinReceptacleSimulator(50);
-		// preloading receptacle with a quarter
+		//preloading receptacle with a quarter
 		receptacle.loadWithoutEvents(new Coin(25));
-		// receptacle for coin return
-		// unsure if this is the proper class for this
+		//receptacle for coin return
+		//unsure if this is the proper class for this
 		CoinReceptacleSimulator coinReturn = new CoinReceptacleSimulator(50);
-		// channel from receptacle to coin return
-		CoinChannelSimulator receptacleToReturn = new CoinChannelSimulator(
-				coinReturn);
+		//channel from receptacle to coin return
+		CoinChannelSimulator receptacleToReturn = new CoinChannelSimulator(coinReturn);
 		DisplaySimulator display = new DisplaySimulator();
-
-		// connecting receptacle and channel
+		
+		//connecting receptacle and channel
 		receptacle.connect(null, receptacleToReturn, null);
-
-		// registering the receptacle to listen to the return button
+		
+		//registering the receptacle to listen to the return button
 		returnBtn.register(receptacle);
-
-		// registering the display to listen to the receptacle
+		
+		//registering the display to listen to the receptacle
 		receptacle.register(display);
-
-		// button gets pressed
-		returnBtn.press();
+		
+		//button gets pressed
+		returnBtn.press();		
 	}
-
-	// Tests the timer in the display for when the machine is out of a product
+	
+	
+	//Tests the timer in the display for when the machine is out of a product
 	public static void testTimer() {
 		DisplaySimulator display = new DisplaySimulator();
 		display.display("initial message");
-
+		
 		display.popEmpty(null);
 	}
-
+	
 	public static void testChange() {
-		final int[] validValues = { 5, 10, 25, 100, 200 };
-		final int[] popPrices = { 200, 200, 200, 200, 200, 200, 200, 200, 200,
-				200 };
-		final String[] popNames = { "Water", "Coke", "Diet Coke", "Coke Zero",
-				"7-Up", "Monster", "Red Bull", "Dr. Pepper", "Crush",
-				"Gatorade" };
-
-		HardwareSimulator machine = new HardwareSimulator(validValues,
-				popPrices, popNames);
-
-		// fill coin racks
+		final int[] validValues = {5, 10, 25, 100, 200};
+	    final int[] popPrices = {200, 200, 200, 200, 200, 200, 200, 200, 200, 200};
+	    final String[] popNames = {"Water", "Coke", "Diet Coke", "Coke Zero", "7-Up", "Monster", "Red Bull", 
+	    	 "Dr. Pepper", "Crush", "Gatorade"};
+	     
+	    HardwareSimulator machine = new HardwareSimulator(validValues , popPrices, popNames);
+	    
+		//fill coin racks
 		while (machine.getCoinRack(0).hasSpace()) {
 			try {
 				machine.getCoinRack(0).acceptCoin(new Coin(5));
 			} catch (CapacityExceededException | DisabledException e) {
-				// should never happen
+				//should never happen
 			}
 		}
 		while (machine.getCoinRack(1).hasSpace()) {
 			try {
 				machine.getCoinRack(1).acceptCoin(new Coin(10));
 			} catch (CapacityExceededException | DisabledException e) {
-				// should never happen
+				//should never happen
 			}
 		}
 		while (machine.getCoinRack(2).hasSpace()) {
 			try {
 				machine.getCoinRack(2).acceptCoin(new Coin(25));
 			} catch (CapacityExceededException | DisabledException e) {
-				// should never happen
+				//should never happen
 			}
 		}
 		while (machine.getCoinRack(3).hasSpace()) {
 			try {
 				machine.getCoinRack(3).acceptCoin(new Coin(100));
 			} catch (CapacityExceededException | DisabledException e) {
-				// should never happen
+				//should never happen
 			}
 		}
 		while (machine.getCoinRack(4).hasSpace()) {
 			try {
 				machine.getCoinRack(4).acceptCoin(new Coin(200));
 			} catch (CapacityExceededException | DisabledException e) {
-				// should never happen
+				//should never happen
 			}
 		}
-		// adds pop to the racks
-		for (int i = 0; i < popPrices.length; i++) {
+	    //adds pop to the racks
+		for (int i = 0; i < popPrices.length; i++){
 			PopCanRackSimulator rack = machine.getPopCanRack(i);
 			for (int j = 0; j < 5; j++) {
 				try {
 					rack.addPop(new PopCan());
 				} catch (CapacityExceededException | DisabledException e) {
-					// should never happen
+					//should never happen
 				}
 			}
 		}
-
+		
 		try {
 			machine.getCoinSlot().addCoin(new Coin(200));
 			machine.getCoinSlot().addCoin(new Coin(25));
@@ -159,13 +154,13 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		machine.getSelectionButton(0).press();
-
-		System.out
-				.println(((Coin) (machine.getDeliveryChute().removeItems()[0]))
-						.getValue());
-
+		
+		System.out.println(((Coin) (machine.getDeliveryChute().removeItems()[0])).getValue());
+		
 	}
+	
+	
 
 }

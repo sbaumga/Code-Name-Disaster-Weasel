@@ -223,9 +223,11 @@ public class CoinReceptacleSimulator extends
 		try {
 			returnCoins();
 		} catch (CapacityExceededException e) {
-			// should never happen
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (DisabledException e) {
-			// should never happen
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
