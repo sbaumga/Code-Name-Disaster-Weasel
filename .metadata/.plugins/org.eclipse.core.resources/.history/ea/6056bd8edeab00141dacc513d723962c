@@ -391,6 +391,8 @@ public class HardwareSimulator implements CoinReceptacleListener, SelectionButto
 				moneyBack = moneyBack % 10;
 				int numOfNickels = moneyBack / 5;
 				
+				// TODO: remove this as it probably won't be used
+				moneyBack = 0;
 				
 				//While $2 values need to be returned and there are $2 coins that can be returned
 				//return $2 coins 

@@ -156,42 +156,6 @@ public class Vending  implements  ActionListener, DisplaySimulatorListener {
 	//additional setup
 	//registers the gui to listen to the display
 	machine.getDisplay().register(this);
-	//fill coin racks
-	while (machine.getCoinRack(0).hasSpace()) {
-		try {
-			machine.getCoinRack(0).acceptCoin(new Coin(5));
-		} catch (CapacityExceededException | DisabledException e) {
-			//should never happen
-		}
-	}
-	while (machine.getCoinRack(1).hasSpace()) {
-		try {
-			machine.getCoinRack(1).acceptCoin(new Coin(10));
-		} catch (CapacityExceededException | DisabledException e) {
-			//should never happen
-		}
-	}
-	while (machine.getCoinRack(2).hasSpace()) {
-		try {
-			machine.getCoinRack(2).acceptCoin(new Coin(25));
-		} catch (CapacityExceededException | DisabledException e) {
-			//should never happen
-		}
-	}
-	while (machine.getCoinRack(3).hasSpace()) {
-		try {
-			machine.getCoinRack(3).acceptCoin(new Coin(100));
-		} catch (CapacityExceededException | DisabledException e) {
-			//should never happen
-		}
-	}
-	while (machine.getCoinRack(4).hasSpace()) {
-		try {
-			machine.getCoinRack(4).acceptCoin(new Coin(200));
-		} catch (CapacityExceededException | DisabledException e) {
-			//should never happen
-		}
-	}
 	//adds pop to the racks
 	for (int i = 0; i < popPrices.length; i++){
 		PopCanRackSimulator rack = machine.getPopCanRack(i);

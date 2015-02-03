@@ -1,21 +1,17 @@
 package initialTesting;
 
-import org.lsmr.vendingmachine.simulator.CapacityExceededException;
 import org.lsmr.vendingmachine.simulator.Coin;
 import org.lsmr.vendingmachine.simulator.CoinChannelSimulator;
 import org.lsmr.vendingmachine.simulator.CoinReceptacleSimulator;
 import org.lsmr.vendingmachine.simulator.CoinSlotSimulator;
 import org.lsmr.vendingmachine.simulator.DisabledException;
 import org.lsmr.vendingmachine.simulator.DisplaySimulator;
-import org.lsmr.vendingmachine.simulator.HardwareSimulator;
-import org.lsmr.vendingmachine.simulator.PopCan;
-import org.lsmr.vendingmachine.simulator.PopCanRackSimulator;
 import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 
 public class Test {
 
 	public static void main(String[] args) {
-		testChange();		
+		testTimer();		
 	}
 	
 	//simulates inputting a valid coin into the slot
@@ -89,76 +85,6 @@ public class Test {
 		display.display("initial message");
 		
 		display.popEmpty(null);
-	}
-	
-	public static void testChange() {
-		final int[] validValues = {5, 10, 25, 100, 200};
-	    final int[] popPrices = {200, 200, 200, 200, 200, 200, 200, 200, 200, 200};
-	    final String[] popNames = {"Water", "Coke", "Diet Coke", "Coke Zero", "7-Up", "Monster", "Red Bull", 
-	    	 "Dr. Pepper", "Crush", "Gatorade"};
-	     
-	    HardwareSimulator machine = new HardwareSimulator(validValues , popPrices, popNames);
-	    
-		//fill coin racks
-		while (machine.getCoinRack(0).hasSpace()) {
-			try {
-				machine.getCoinRack(0).acceptCoin(new Coin(5));
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-		while (machine.getCoinRack(1).hasSpace()) {
-			try {
-				machine.getCoinRack(1).acceptCoin(new Coin(10));
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-		while (machine.getCoinRack(2).hasSpace()) {
-			try {
-				machine.getCoinRack(2).acceptCoin(new Coin(25));
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-		while (machine.getCoinRack(3).hasSpace()) {
-			try {
-				machine.getCoinRack(3).acceptCoin(new Coin(100));
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-		while (machine.getCoinRack(4).hasSpace()) {
-			try {
-				machine.getCoinRack(4).acceptCoin(new Coin(200));
-			} catch (CapacityExceededException | DisabledException e) {
-				//should never happen
-			}
-		}
-	    //adds pop to the racks
-		for (int i = 0; i < popPrices.length; i++){
-			PopCanRackSimulator rack = machine.getPopCanRack(i);
-			for (int j = 0; j < 5; j++) {
-				try {
-					rack.addPop(new PopCan());
-				} catch (CapacityExceededException | DisabledException e) {
-					//should never happen
-				}
-			}
-		}
-		
-		try {
-			machine.getCoinSlot().addCoin(new Coin(200));
-			machine.getCoinSlot().addCoin(new Coin(25));
-		} catch (DisabledException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		machine.getSelectionButton(0).press();
-		
-		System.out.println(((Coin) (machine.getDeliveryChute().removeItems()[0])).getValue());
-		
 	}
 	
 	

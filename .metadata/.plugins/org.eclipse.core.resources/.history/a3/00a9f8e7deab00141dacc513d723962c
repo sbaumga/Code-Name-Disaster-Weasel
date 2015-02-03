@@ -15,7 +15,7 @@ import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 public class Test {
 
 	public static void main(String[] args) {
-		testChange();		
+		testTimer();		
 	}
 	
 	//simulates inputting a valid coin into the slot

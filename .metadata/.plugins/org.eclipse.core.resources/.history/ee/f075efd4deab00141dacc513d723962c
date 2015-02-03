@@ -15,7 +15,7 @@ import org.lsmr.vendingmachine.simulator.SelectionButtonSimulator;
 public class Test {
 
 	public static void main(String[] args) {
-		testChange();		
+		testTimer();		
 	}
 	
 	//simulates inputting a valid coin into the slot
@@ -157,8 +157,7 @@ public class Test {
 		
 		machine.getSelectionButton(0).press();
 		
-		System.out.println(((Coin) (machine.getDeliveryChute().removeItems()[0])).getValue());
-		
+		machine.getDeliveryChute().removeItems();
 	}
 	
 	
