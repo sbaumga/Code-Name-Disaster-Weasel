@@ -70,7 +70,7 @@ public class DisplaySimulator extends
 			public void run() {
 				display("$0.00");
 			}
-		}, 3000); // 3000 = time to wait in milliseconds
+		}, 3000); // 2000 = time to wait in milliseconds
 
 	}
 
@@ -102,7 +102,7 @@ public class DisplaySimulator extends
 		// print Pop is in delivery chute
 		final String oldMsg = message;
 		Timer timer = new Timer();
-		//display("Pop is in delivery chute");
+		display("Pop is in delivery chute");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				display(oldMsg);
@@ -138,7 +138,7 @@ public class DisplaySimulator extends
 
 	@Override
 	public void coinsEmpty(CoinRackSimulator rack) {
-		// does not need to do anything when coinsEmtpy
+		//o-generated method stub TODO Aut
 		
 	}
 
@@ -152,7 +152,7 @@ public class DisplaySimulator extends
 		// display value of the coin to user which means returning coins to user
 		final String oldMsg = message;
 		Timer timer = new Timer();
-		display("Return changes: $" + df.format((double)coin.getValue()*0.01));
+		display("Return changes: " + coin.getValue()*0.01);
 		timer.schedule(new TimerTask() {
 			public void run() {
 				display(oldMsg);
