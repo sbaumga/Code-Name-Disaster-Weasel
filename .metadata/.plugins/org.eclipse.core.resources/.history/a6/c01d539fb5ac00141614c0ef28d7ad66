@@ -510,7 +510,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	 * in a human readable format
 	 */
 	public String getDeliveryChuteContents() {
-		String contents = " ";
+		String contents;
 		
 		Object[] items = machine.getDeliveryChute().removeItems();
 		

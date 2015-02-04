@@ -102,7 +102,7 @@ public class DisplaySimulator extends
 		// print Pop is in delivery chute
 		final String oldMsg = message;
 		Timer timer = new Timer();
-		//display("Pop is in delivery chute");
+		display("Pop is in delivery chute");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				display(oldMsg);

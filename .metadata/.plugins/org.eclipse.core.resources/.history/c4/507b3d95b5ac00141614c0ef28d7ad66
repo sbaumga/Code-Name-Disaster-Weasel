@@ -510,7 +510,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	 * in a human readable format
 	 */
 	public String getDeliveryChuteContents() {
-		String contents = " ";
+		String contents;
 		
 		Object[] items = machine.getDeliveryChute().removeItems();
 		
@@ -535,12 +535,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 			}
 			int coinTotal = 0;
 			for (int j = 0; j < i; j++) {
-				coinTotal =+ ((Coin) (items[j])).getValue();
-			}
-			if (coinTotal == 0) {
-				contents += "No coins returned.";
-			} else {
-				contents += coinTotal + " cents worth of coins returned.";
+				
 			}
 		}
 		

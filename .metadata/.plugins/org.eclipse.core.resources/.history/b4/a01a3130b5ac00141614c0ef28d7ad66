@@ -504,47 +504,5 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		}
 
 	}
-	
-	/*
-	 * Will empty delivery chute and return the contents of the chute
-	 * in a human readable format
-	 */
-	public String getDeliveryChuteContents() {
-		String contents = " ";
-		
-		Object[] items = machine.getDeliveryChute().removeItems();
-		
-		if (items.length < 1) {
-			contents = "Delivery chute empty";
-		} else {
-			int i = 1;
-			//if the last item is a pop can
-			if (items[items.length - 1] instanceof PopCan) {
-				contents = "Pop delivered. ";
-				//only pop can is delivered
-				if (items.length == 1) {
-					//coin loop will not run
-					i = 0;
-				} else {
-					//last item will not be counted as a coin
-					i = items.length - 1;
-				}
-			} else {
-				//all items are coins
-				i = items.length;
-			}
-			int coinTotal = 0;
-			for (int j = 0; j < i; j++) {
-				coinTotal =+ ((Coin) (items[j])).getValue();
-			}
-			if (coinTotal == 0) {
-				contents += "No coins returned.";
-			} else {
-				contents += coinTotal + " cents worth of coins returned.";
-			}
-		}
-		
-		return contents;
-	}
 
 }

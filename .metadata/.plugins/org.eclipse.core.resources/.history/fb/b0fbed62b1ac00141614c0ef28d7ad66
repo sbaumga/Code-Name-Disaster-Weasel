@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 
 import org.lsmr.vendingmachine.simulator.*;
 
-public class GUI implements ActionListener, DisplaySimulatorListener,
-		IndicatorLightSimulatorListener {
+public class GUI implements ActionListener, DisplaySimulatorListener, 
+								 IndicatorLightSimulatorListener {
 	final static boolean shouldFill = true;
 	final static boolean shouldWeightX = true;
 	final static boolean RIGHT_TO_LEFT = false;
@@ -27,13 +27,13 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	JFrame frame, f2; // frame is Vending Machine Frame, f2 is for wallet
 	JTextField text; // display area
 	JTextField OutofOrderLight, ExactChangeLight;
-	JTextField DeliveryChute, ReturnChange;
-
+	JTextField	DeliveryChute, ReturnChange;
+	
 	final int[] validValues = { 5, 10, 25, 100, 200 };
 	final int[] popPrices = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 	final String[] popNames = { "Water", "Coke", "Diet Coke", "Coke Zero",
 			"7-Up", "Monster", "Red Bull", "Dr. Pepper", "Crush", "Gatorade" };
-	// private int SelectedPop = 10;
+//	private int SelectedPop = 10;
 
 	private HardwareSimulator machine = new HardwareSimulator(validValues,
 			popPrices, popNames);
@@ -135,9 +135,9 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		text = new JTextField("");
 		text.setEditable(false);
 		text.setBackground(Color.WHITE);
-		text.setFont(new Font("Arial Black", Font.BOLD, 18));
+		text.setFont(new Font ("Arial Black", Font.BOLD,18));
 		text.setForeground(Color.BLACK);
-		text.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		text.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 40; // make this component tall
 		c.weightx = 0.0;
@@ -145,67 +145,66 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.gridx = 2;
 		c.gridy = 1;
 		pane.add(text, c);
-
+		
 		// A field to represent the out of order light
 		OutofOrderLight = new JTextField("OutOfOrderLight");
 		OutofOrderLight.setEditable(false);
 		OutofOrderLight.setBackground(Color.WHITE);
 		OutofOrderLight.setText("");
 		OutofOrderLight.setForeground(Color.BLACK);
-		OutofOrderLight.setBorder(BorderFactory
-				.createLineBorder(Color.BLACK, 2));
+		OutofOrderLight.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10; // make this component tall
+		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
-		c.gridwidth = 1;
+		c.gridwidth = 1;	
 		c.gridx = 1;
 		c.gridy = 1;
 		pane.add(OutofOrderLight, c);
-
+		
 		// A field to represent the exact change light/mode
 		ExactChangeLight = new JTextField("ExactChangeLight");
 		ExactChangeLight.setEditable(true);
 		ExactChangeLight.setBackground(Color.WHITE);
 		ExactChangeLight.setText("Exact Change Mode");
 		ExactChangeLight.setForeground(Color.BLACK);
-		ExactChangeLight.setBorder(BorderFactory.createLineBorder(Color.BLACK,
-				2));
+		ExactChangeLight.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10; // make this component tall
+		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
 		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 2;
-		pane.add(ExactChangeLight, c);
+		pane.add(ExactChangeLight, c);	
 
-		// Unused Part
-		// DeliveryChute = new JTextField("");
-		// DeliveryChute.setEditable(true);
-		// DeliveryChute.setBackground(Color.WHITE);
-		// DeliveryChute.createVolatileImage(1,2);
-		// DeliveryChute.setForeground(Color.BLACK);
-		// DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-		// c.fill = GridBagConstraints.HORIZONTAL;
-		// c.ipady = 10;
-		// c.weightx = 0.0;
-		// c.gridwidth = 1;
-		// c.gridx = 4;
-		// c.gridy = 2;
-		// pane.add(DeliveryChute, c);
-		//
-		// ReturnChange = new JTextField("");
-		// ReturnChange.setEditable(true);
-		// ReturnChange.setBackground(Color.WHITE);
-		// ReturnChange.setForeground(Color.BLACK);
-		// ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-		// c.fill = GridBagConstraints.HORIZONTAL;
-		// c.ipady = 10;
-		// c.weightx = 0.0;
-		// c.gridwidth = 1;
-		// c.gridx = 6;
-		// c.gridy = 2;
-		// pane.add(ReturnChange, c);
-
+//		Unused Part
+//		DeliveryChute = new JTextField("");
+//		DeliveryChute.setEditable(true);
+//		DeliveryChute.setBackground(Color.WHITE);
+//		DeliveryChute.createVolatileImage(1,2);
+//		DeliveryChute.setForeground(Color.BLACK);
+//		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.ipady = 10;      
+//		c.weightx = 0.0;
+//		c.gridwidth = 1;
+//		c.gridx = 4;
+//		c.gridy = 2;
+//		pane.add(DeliveryChute, c);	
+//		
+//		ReturnChange = new JTextField("");
+//		ReturnChange.setEditable(true);
+//		ReturnChange.setBackground(Color.WHITE);
+//		ReturnChange.setForeground(Color.BLACK);
+//		ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.ipady = 10;      
+//		c.weightx = 0.0;
+//		c.gridwidth = 1;
+//		c.gridx = 6;
+//		c.gridy = 2;
+//		pane.add(ReturnChange, c);	
+		
+		
 		br = new JButton("Return");
 		br.addActionListener(this);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -213,19 +212,18 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.weighty = 0.5; // request any extra vertical space
 		c.anchor = GridBagConstraints.PAGE_END; // bottom of space
 		c.insets = new Insets(10, 0, 0, 0); // top padding
-		c.gridx = 8;
+		c.gridx = 8; 
 		// c.gridwidth = 1; //2 columns wide
-		c.gridy = 1;
+		c.gridy = 1; 
 		pane.add(br, c);
 
 		// additional setup
 		// registers the gui to listen to the display
 		machine.getDisplay().register(this);
-		// registers the gui to listen to the out of order light and exact
-		// change light
+		// registers the gui to listen to the out of order light and exact change light
 		machine.getOutOfOrderLight().register(this);
 		machine.getExactChangeLight().register(this);
-
+		
 		// fill coin racks
 		while (machine.getCoinRack(0).hasSpace()) {
 			try {
@@ -344,34 +342,34 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 
 		if (e.getSource() == b1) {
 			machine.getSelectionButton(0).press();
-			// SelectedPop = 0;
+//			SelectedPop = 0;
 		} else if (e.getSource() == b2) {
 			machine.getSelectionButton(1).press();
-			// SelectedPop = 1;
+//			SelectedPop = 1;
 		} else if (e.getSource() == b3) {
 			machine.getSelectionButton(2).press();
-			// SelectedPop = 2;
+//			SelectedPop = 2;
 		} else if (e.getSource() == b4) {
 			machine.getSelectionButton(3).press();
-			// SelectedPop = 3;
+//			SelectedPop = 3;
 		} else if (e.getSource() == b5) {
 			machine.getSelectionButton(4).press();
-			// SelectedPop = 4;
+//			SelectedPop = 4;
 		} else if (e.getSource() == b6) {
 			machine.getSelectionButton(5).press();
-			// SelectedPop = 5;
+//			SelectedPop = 5;
 		} else if (e.getSource() == b7) {
 			machine.getSelectionButton(6).press();
-			// SelectedPop = 6;
+//			SelectedPop = 6;
 		} else if (e.getSource() == b8) {
 			machine.getSelectionButton(7).press();
-			// SelectedPop = 7;
+//			SelectedPop = 7;
 		} else if (e.getSource() == b9) {
 			machine.getSelectionButton(8).press();
-			// SelectedPop = 8;
+//			SelectedPop = 8;
 		} else if (e.getSource() == b10) {
 			machine.getSelectionButton(9).press();
-			// SelectedPop = 9;
+//			SelectedPop = 9;
 		} else if (e.getSource() == br) {
 			machine.getReturnButton().press();
 		} else if (e.getSource() == b20) {
@@ -443,15 +441,15 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		OutofOrderLight.setBackground(Color.RED);
 		OutofOrderLight.setText("Out of Order");
 	}
-
-	public void TurnONexactChangeLight() {
+	
+	public void TurnONexactChangeLight(){
 		ExactChangeLight.setBackground(Color.GREEN);
 	}
 
-	public void TurnOffexactChangeLight() {
+	public void TurnOffexactChangeLight(){
 		ExactChangeLight.setBackground(Color.WHITE);
 	}
-
+	
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
@@ -484,67 +482,54 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		text.setText(newMsg);
 	}
 
+
 	@Override
 	public void activated(IndicatorLightSimulator light) {
 		// set equivalent light on the GUI
-		if (light == machine.getOutOfOrderLight()) {
+		if(light == machine.getOutOfOrderLight()){
 			TurnOnoutOfOrderLight();
-		} else if (light == machine.getExactChangeLight()) {
+		}else if(light == machine.getExactChangeLight()){
 			TurnONexactChangeLight();
 		}
-
+		
 	}
 
 	@Override
 	public void deactivated(IndicatorLightSimulator light) {
-		// when turn off the exact change light when there is enough changes in
-		// the coin racks
-		if (light == machine.getExactChangeLight()) {
+		//when turn off the exact change light when there is enough changes in the coin racks
+		if(light == machine.getExactChangeLight()){
 			TurnOffexactChangeLight();
 		}
+		
+	}
 
-	}
-	
-	/*
-	 * Will empty delivery chute and return the contents of the chute
-	 * in a human readable format
-	 */
-	public String getDeliveryChuteContents() {
-		String contents = " ";
-		
-		Object[] items = machine.getDeliveryChute().removeItems();
-		
-		if (items.length < 1) {
-			contents = "Delivery chute empty";
-		} else {
-			int i = 1;
-			//if the last item is a pop can
-			if (items[items.length - 1] instanceof PopCan) {
-				contents = "Pop delivered. ";
-				//only pop can is delivered
-				if (items.length == 1) {
-					//coin loop will not run
-					i = 0;
-				} else {
-					//last item will not be counted as a coin
-					i = items.length - 1;
-				}
-			} else {
-				//all items are coins
-				i = items.length;
-			}
-			int coinTotal = 0;
-			for (int j = 0; j < i; j++) {
-				coinTotal =+ ((Coin) (items[j])).getValue();
-			}
-			if (coinTotal == 0) {
-				contents += "No coins returned.";
-			} else {
-				contents += coinTotal + " cents worth of coins returned.";
-			}
-		}
-		
-		return contents;
-	}
+//	PopCanRackListener methods
+//	@Override
+//	public void popAdded(PopCanRackSimulator popRack, PopCan pop) {
+//		// Does not need to do anything when popAdded
+//		
+//	}
+//
+//	@Override
+//	public void popRemoved(PopCanRackSimulator popRack, PopCan pop) {
+//		// Show display the pop to the delivery chute field
+//		if(SelectedPop !=10){
+//			DeliveryChute.setText(popNames[SelectedPop] + "is being dispensed");
+//			//reset the selected pop value to an invalid value
+//			SelectedPop = 10;
+//		}
+//	}
+//
+//	@Override
+//	public void popFull(PopCanRackSimulator popRack) {
+//		// Does not need to do anything when popFull
+//		
+//	}
+//
+//	@Override
+//	public void popEmpty(PopCanRackSimulator popRack) {
+//		// Does not need to do anything when popEmpty
+//		
+//	}
 
 }

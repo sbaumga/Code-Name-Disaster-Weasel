@@ -65,7 +65,7 @@ public class DisplaySimulator extends
 		// all coins should be removed at once, thus the display simply gets set
 		// to 0	
 		Timer timer = new Timer();
-		//display("all coins are returned to user");
+		display("all coins are returned to user");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				display("$0.00");
@@ -102,7 +102,7 @@ public class DisplaySimulator extends
 		// print Pop is in delivery chute
 		final String oldMsg = message;
 		Timer timer = new Timer();
-		//display("Pop is in delivery chute");
+		display("Pop is in delivery chute");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				display(oldMsg);
