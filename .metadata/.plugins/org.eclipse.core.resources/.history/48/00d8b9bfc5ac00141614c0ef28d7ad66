@@ -209,30 +209,31 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		DeliveryChute = new JTextField("DeliveryChute");
 		DeliveryChute.setEditable(true);
 		DeliveryChute.setBackground(Color.WHITE);
-		DeliveryChute.createVolatileImage(1, 2);
+		DeliveryChute.createVolatileImage(1,2);
 		DeliveryChute.setForeground(Color.BLACK);
-		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;
+		c.ipady = 10;      
 		c.weightx = 0.0;
 		c.gridwidth = 5;
 		c.gridx = 2;
 		c.gridy = 2;
-		pane.add(DeliveryChute, c);
-		//
-		// ReturnChange = new JTextField("");
-		// ReturnChange.setEditable(true);
-		// ReturnChange.setBackground(Color.WHITE);
-		// ReturnChange.setForeground(Color.BLACK);
-		// ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-		// c.fill = GridBagConstraints.HORIZONTAL;
-		// c.ipady = 10;
-		// c.weightx = 0.0;
-		// c.gridwidth = 1;
-		// c.gridx = 6;
-		// c.gridy = 2;
-		// pane.add(ReturnChange, c);
-
+		pane.add(DeliveryChute, c);	
+//		
+//		ReturnChange = new JTextField("");
+//		ReturnChange.setEditable(true);
+//		ReturnChange.setBackground(Color.WHITE);
+//		ReturnChange.setForeground(Color.BLACK);
+//		ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.ipady = 10;      
+//		c.weightx = 0.0;
+//		c.gridwidth = 1;
+//		c.gridx = 6;
+//		c.gridy = 2;
+//		pane.add(ReturnChange, c);	
+		
+		
 		br = new JButton("Return");
 		br.addActionListener(this);
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -439,7 +440,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 				// should never happen
 			}
 		}
-		// When any button is pressed, check the delivery chute contents
+		//When any button is pressed, check the delivery chute contents
 		DeliveryChute.setText(getDeliveryChuteContents());
 	}
 

@@ -85,6 +85,13 @@ public class Test {
 		returnBtn.press();
 	}
 
+	// Tests the timer in the display for when the machine is out of a product
+	public static void testTimer() {
+		DisplaySimulator display = new DisplaySimulator();
+		display.display("initial message");
+
+		display.popEmpty(null);
+	}
 
 	public static void testChange() {
 		final int[] validValues = { 5, 10, 25, 100, 200 };

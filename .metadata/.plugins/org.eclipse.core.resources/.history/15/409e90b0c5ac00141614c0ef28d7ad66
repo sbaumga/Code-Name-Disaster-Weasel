@@ -81,4 +81,35 @@ public class DisplaySimulator extends
 	public void disabled(CoinReceptacleSimulator receptacle) {
 		// nothing needs to be done with display when receptacle is disabled
 	}
+
+	@Override
+	public void coinsFull(CoinRackSimulator rack) {
+		// does not need to do anything when coinsFull
+		
+	}
+
+	@Override
+	public void coinsEmpty(CoinRackSimulator rack) {
+		// does not need to do anything when coinsEmtpy
+		
+	}
+
+	@Override
+	public void coinAdded(CoinRackSimulator rack, Coin coin) {
+		// does not need to do anything when coinAdded
+	}
+
+	@Override
+	public void coinRemoved(CoinRackSimulator rack, Coin coin) {
+		// display value of the coin to user which means returning coins to user
+		final String oldMsg = message;
+		Timer timer = new Timer();
+		display("Return changes: $" + df.format((double)coin.getValue()*0.01));
+		timer.schedule(new TimerTask() {
+			public void run() {
+				display(oldMsg);
+			}
+		}, 2000); // 2000 = time to wait in milliseconds
+		
+	}
 }
