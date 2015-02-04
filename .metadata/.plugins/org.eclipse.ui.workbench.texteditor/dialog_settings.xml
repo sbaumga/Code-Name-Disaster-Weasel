@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
-		<item value="630" key="DIALOG_Y_ORIGIN"/>
+		<item value="385" key="DIALOG_Y_ORIGIN"/>
+		<item value="137" key="DIALOG_X_ORIGIN"/>
 		<item value="442" key="DIALOG_HEIGHT"/>
-		<item value="223" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="register" key="selection"/>
+		<item value="delivery chute" key="selection"/>
 		<list key="findhistory">
+			<item value="delivery chute"/>
+			<item value="return"/>
+			<item value="all coins are returned"/>
+			<item value="all coins are returned to user"/>
+			<item value="override"/>
+			<item value="`"/>
 			<item value="register"/>
 			<item value="out of product"/>
-			<item value="coinsFull"/>
-			<item value="exactChange"/>
-			<item value="getDisplay"/>
-			<item value="popCosts"/>
-			<item value="notifyPopEmpty"/>
-			<item value="deliveryChute"/>
 		</list>
 		<list key="replacehistory">
 		</list>
