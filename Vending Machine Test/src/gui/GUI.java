@@ -176,20 +176,19 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.gridy = 2;
 		pane.add(ExactChangeLight, c);	
 
-//		Unused Part
-//		DeliveryChute = new JTextField("");
-//		DeliveryChute.setEditable(true);
-//		DeliveryChute.setBackground(Color.WHITE);
-//		DeliveryChute.createVolatileImage(1,2);
-//		DeliveryChute.setForeground(Color.BLACK);
-//		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-//		c.fill = GridBagConstraints.HORIZONTAL;
-//		c.ipady = 10;      
-//		c.weightx = 0.0;
-//		c.gridwidth = 1;
-//		c.gridx = 4;
-//		c.gridy = 2;
-//		pane.add(DeliveryChute, c);	
+		DeliveryChute = new JTextField("DeliveryChute");
+		DeliveryChute.setEditable(true);
+		DeliveryChute.setBackground(Color.WHITE);
+		DeliveryChute.createVolatileImage(1,2);
+		DeliveryChute.setForeground(Color.BLACK);
+		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 10;      
+		c.weightx = 0.0;
+		c.gridwidth = 5;
+		c.gridx = 2;
+		c.gridy = 2;
+		pane.add(DeliveryChute, c);	
 //		
 //		ReturnChange = new JTextField("");
 //		ReturnChange.setEditable(true);
