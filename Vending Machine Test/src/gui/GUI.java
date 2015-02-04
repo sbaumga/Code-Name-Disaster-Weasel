@@ -15,7 +15,8 @@ import javax.swing.JTextField;
 
 import org.lsmr.vendingmachine.simulator.*;
 
-public class GUI implements ActionListener, DisplaySimulatorListener {
+public class GUI implements ActionListener, DisplaySimulatorListener, 
+								 IndicatorLightSimulatorListener /*, PopCanRackListener*/{
 	final static boolean shouldFill = true;
 	final static boolean shouldWeightX = true;
 	final static boolean RIGHT_TO_LEFT = false;
@@ -32,6 +33,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 	final int[] popPrices = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 	final String[] popNames = { "Water", "Coke", "Diet Coke", "Coke Zero",
 			"7-Up", "Monster", "Red Bull", "Dr. Pepper", "Crush", "Gatorade" };
+//	private int SelectedPop = 10;
 
 	private HardwareSimulator machine = new HardwareSimulator(validValues,
 			popPrices, popNames);
@@ -139,8 +141,8 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 40; // make this component tall
 		c.weightx = 0.0;
-		c.gridwidth = 3;
-		c.gridx = 4;
+		c.gridwidth = 5;
+		c.gridx = 2;
 		c.gridy = 1;
 		pane.add(text, c);
 		
@@ -155,7 +157,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
 		c.gridwidth = 1;	
-		c.gridx = 2;
+		c.gridx = 1;
 		c.gridy = 1;
 		pane.add(OutofOrderLight, c);
 		
@@ -170,36 +172,37 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		c.ipady = 10;      //make this component tall
 		c.weightx = 0.0;
 		c.gridwidth = 1;
-		c.gridx = 2;
+		c.gridx = 1;
 		c.gridy = 2;
 		pane.add(ExactChangeLight, c);	
-		
-		DeliveryChute = new JTextField("");
-		DeliveryChute.setEditable(true);
-		DeliveryChute.setBackground(Color.WHITE);
-		DeliveryChute.createVolatileImage(1,2);
-		DeliveryChute.setForeground(Color.BLACK);
-		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      
-		c.weightx = 0.0;
-		c.gridwidth = 1;
-		c.gridx = 4;
-		c.gridy = 2;
-		pane.add(DeliveryChute, c);	
-		
-		ReturnChange = new JTextField("");
-		ReturnChange.setEditable(true);
-		ReturnChange.setBackground(Color.WHITE);
-		ReturnChange.setForeground(Color.BLACK);
-		ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 10;      
-		c.weightx = 0.0;
-		c.gridwidth = 1;
-		c.gridx = 6;
-		c.gridy = 2;
-		pane.add(ReturnChange, c);	
+
+//		Unused Part
+//		DeliveryChute = new JTextField("");
+//		DeliveryChute.setEditable(true);
+//		DeliveryChute.setBackground(Color.WHITE);
+//		DeliveryChute.createVolatileImage(1,2);
+//		DeliveryChute.setForeground(Color.BLACK);
+//		DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.ipady = 10;      
+//		c.weightx = 0.0;
+//		c.gridwidth = 1;
+//		c.gridx = 4;
+//		c.gridy = 2;
+//		pane.add(DeliveryChute, c);	
+//		
+//		ReturnChange = new JTextField("");
+//		ReturnChange.setEditable(true);
+//		ReturnChange.setBackground(Color.WHITE);
+//		ReturnChange.setForeground(Color.BLACK);
+//		ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.ipady = 10;      
+//		c.weightx = 0.0;
+//		c.gridwidth = 1;
+//		c.gridx = 6;
+//		c.gridy = 2;
+//		pane.add(ReturnChange, c);	
 		
 		
 		br = new JButton("Return");
@@ -217,6 +220,10 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		// additional setup
 		// registers the gui to listen to the display
 		machine.getDisplay().register(this);
+		// registers the gui to listen to the out of order light and exact change light
+		machine.getOutOfOrderLight().register(this);
+		machine.getExactChangeLight().register(this);
+		
 		// fill coin racks
 		while (machine.getCoinRack(0).hasSpace()) {
 			try {
@@ -256,7 +263,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		// adds pop to the racks
 		for (int i = 0; i < popPrices.length; i++) {
 			PopCanRackSimulator rack = machine.getPopCanRack(i);
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < 2; j++) {
 				try {
 					rack.addPop(new PopCan());
 				} catch (CapacityExceededException | DisabledException e) {
@@ -335,24 +342,34 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 
 		if (e.getSource() == b1) {
 			machine.getSelectionButton(0).press();
+//			SelectedPop = 0;
 		} else if (e.getSource() == b2) {
 			machine.getSelectionButton(1).press();
+//			SelectedPop = 1;
 		} else if (e.getSource() == b3) {
 			machine.getSelectionButton(2).press();
+//			SelectedPop = 2;
 		} else if (e.getSource() == b4) {
 			machine.getSelectionButton(3).press();
+//			SelectedPop = 3;
 		} else if (e.getSource() == b5) {
 			machine.getSelectionButton(4).press();
+//			SelectedPop = 4;
 		} else if (e.getSource() == b6) {
 			machine.getSelectionButton(5).press();
+//			SelectedPop = 5;
 		} else if (e.getSource() == b7) {
 			machine.getSelectionButton(6).press();
+//			SelectedPop = 6;
 		} else if (e.getSource() == b8) {
 			machine.getSelectionButton(7).press();
+//			SelectedPop = 7;
 		} else if (e.getSource() == b9) {
 			machine.getSelectionButton(8).press();
+//			SelectedPop = 8;
 		} else if (e.getSource() == b10) {
 			machine.getSelectionButton(9).press();
+//			SelectedPop = 9;
 		} else if (e.getSource() == br) {
 			machine.getReturnButton().press();
 		} else if (e.getSource() == b20) {
@@ -464,5 +481,55 @@ public class GUI implements ActionListener, DisplaySimulatorListener {
 		// update text display
 		text.setText(newMsg);
 	}
+
+
+	@Override
+	public void activated(IndicatorLightSimulator light) {
+		// set equivalent light on the GUI
+		if(light == machine.getOutOfOrderLight()){
+			TurnOnoutOfOrderLight();
+		}else if(light == machine.getExactChangeLight()){
+			TurnONexactChangeLight();
+		}
+		
+	}
+
+	@Override
+	public void deactivated(IndicatorLightSimulator light) {
+		//when turn off the exact change light when there is enough changes in the coin racks
+		if(light == machine.getExactChangeLight()){
+			TurnOffexactChangeLight();
+		}
+		
+	}
+
+//	PopCanRackListener methods
+//	@Override
+//	public void popAdded(PopCanRackSimulator popRack, PopCan pop) {
+//		// Does not need to do anything when popAdded
+//		
+//	}
+//
+//	@Override
+//	public void popRemoved(PopCanRackSimulator popRack, PopCan pop) {
+//		// Show display the pop to the delivery chute field
+//		if(SelectedPop !=10){
+//			DeliveryChute.setText(popNames[SelectedPop] + "is being dispensed");
+//			//reset the selected pop value to an invalid value
+//			SelectedPop = 10;
+//		}
+//	}
+//
+//	@Override
+//	public void popFull(PopCanRackSimulator popRack) {
+//		// Does not need to do anything when popFull
+//		
+//	}
+//
+//	@Override
+//	public void popEmpty(PopCanRackSimulator popRack) {
+//		// Does not need to do anything when popEmpty
+//		
+//	}
 
 }

@@ -129,6 +129,9 @@ public class HardwareSimulator implements CoinReceptacleListener,
 
 		// display listens to temporary storage of coins
 		receptacle.register(display);
+		// display listens to each coin rack
+		for (CoinRackSimulator coinrack : coinRacks)
+			coinrack.register(display);
 		// temporary storage of coins listens to the coin return button
 		returnButton.register(receptacle);
 		// the display listens to all of the pop racks
@@ -186,6 +189,14 @@ public class HardwareSimulator implements CoinReceptacleListener,
 	public IndicatorLightSimulator getOutOfOrderLight() {
 		return outOfOrderLight;
 	}
+	
+	/**
+	 *  Return the exact change light
+	 */
+	public IndicatorLightSimulator getExactChangeLight(){
+		return exactChangeLight;
+	}
+	
 
 	/**
 	 * Returns a selection button at the indicated index.
@@ -341,7 +352,7 @@ public class HardwareSimulator implements CoinReceptacleListener,
 
 		// use loop to find the index of the pressed button for dispensing the
 		// correct pop
-		int IndexOfPressedButton = 6, elementcounter = 0;
+		int IndexOfPressedButton = 10, elementcounter = 0;
 
 		for (SelectionButtonSimulator btn : buttons) {
 			if (btn == button) {
@@ -516,10 +527,11 @@ public class HardwareSimulator implements CoinReceptacleListener,
 						display.display(oldMsg);
 					}
 				}, 4000); // 4000 = time to wait in milliseconds
-
+				
 			}
 		} else {
 			// out of product
+			
 			final String oldMsg = display.getMessage();
 			Timer timer = new Timer();
 			display.display("Out of product");
@@ -529,5 +541,9 @@ public class HardwareSimulator implements CoinReceptacleListener,
 				}
 			}, 5000); // 5000 = time to wait in milliseconds
 		}
+		
+		// condition to deactivate the exact change light
+		if(!coinRacks[0].hasSpace() && !coinRacks[1].hasSpace() && !coinRacks[2].hasSpace() && !coinRacks[3].hasSpace() && !coinRacks[4].hasSpace())
+			getExactChangeLight().deactivate();
 	}
 }
