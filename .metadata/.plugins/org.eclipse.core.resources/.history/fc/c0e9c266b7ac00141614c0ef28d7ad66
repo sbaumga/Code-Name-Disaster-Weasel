@@ -107,7 +107,7 @@ public class DisplaySimulator extends
 			public void run() {
 				display(oldMsg);
 			}
-		}, 1000); // 1000 = time to wait in milliseconds
+		}, 1000); // 2000 = time to wait in milliseconds
 	}
 
 	@Override
