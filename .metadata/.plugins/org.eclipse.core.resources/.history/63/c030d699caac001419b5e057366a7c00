@@ -537,7 +537,8 @@ public class HardwareSimulator implements CoinReceptacleListener,
 
 		// condition to deactivate the exact change light
 		if (!coinRacks[0].hasSpace() && !coinRacks[1].hasSpace()
-				&& !coinRacks[2].hasSpace() && !coinRacks[3].hasSpace())
+				&& !coinRacks[2].hasSpace() && !coinRacks[3].hasSpace()
+				&& !coinRacks[4].hasSpace())
 			getExactChangeLight().deactivate();
 	}
 }
