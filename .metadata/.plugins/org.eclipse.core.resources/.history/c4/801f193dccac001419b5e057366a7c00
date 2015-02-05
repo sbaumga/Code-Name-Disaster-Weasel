@@ -37,7 +37,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	private HardwareSimulator machine = new HardwareSimulator(validValues,
 			popPrices, popNames);
 
-	// Sets up the GUI and the machine
+	//Sets up the GUI and the machine
 	public void addComponentsToPane(Container pane) {
 		if (RIGHT_TO_LEFT) {
 			pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -260,7 +260,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		}
 	}
 
-	// Also sets up GUI
+	//Also sets up GUI
 	public void addComponentsToPane2(Container pane) {
 		if (RIGHT_TO_LEFT) {
 			pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);

@@ -39,11 +39,6 @@ public class DisplaySimulator extends
 				parameterTypes, args);
 	}
 
-	/**
-	 * Returns the message that the display is currently showing
-	 * 
-	 * @return message
-	 */
 	public String getMessage() {
 		return message;
 	}
@@ -61,13 +56,13 @@ public class DisplaySimulator extends
 	@Override
 	// Sets the display message to be the value of all coins in the receptacle
 	public void coinAdded(CoinReceptacleSimulator receptacle, Coin coin) {
-		display('$' + df.format((double) receptacle.getTotalValue() * 0.01));
+		display('$' + df.format((double)receptacle.getTotalValue() * 0.01));
 	}
 
 	@Override
 	public void coinsRemoved(CoinReceptacleSimulator receptacle) {
 		// all coins should be removed at once, thus the display simply gets set
-		// to 0
+		// to 0	
 		display("$0.00");
 	}
 

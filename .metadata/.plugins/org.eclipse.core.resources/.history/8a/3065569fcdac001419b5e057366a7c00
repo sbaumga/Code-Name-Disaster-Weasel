@@ -21,7 +21,7 @@ import java.util.TimerTask;
  * <li>one textual display;</li>
  * <li>a set of zero or more selection buttons (exactly one per pop can rack);</li>
  * <li>a selection button to return entered coins to the user; and</li>
- * <li>two indicator lights to indicate that the machine is out of order and
+ * <li>two indicator lights to indicate that the machine is out of order and 
  * that the machine will not produce change.</li>
  * </ul>
  * <p>

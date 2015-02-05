@@ -175,7 +175,7 @@ public class CoinReceptacleSimulator extends
 	/**
 	 * Returns the value of all coins in the receptacle
 	 * 
-	 * @return value, the combined value of all coins in coinsEntered
+	 * @return value, the combined value of all coins in coinsentered
 	 */
 	public int getTotalValue() {
 		int value = 0;

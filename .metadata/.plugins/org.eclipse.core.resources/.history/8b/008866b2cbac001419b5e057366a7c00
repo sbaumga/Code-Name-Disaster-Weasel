@@ -33,11 +33,11 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	final int[] popPrices = { 200, 200, 200, 200, 200, 200, 200, 200, 200, 200 };
 	final String[] popNames = { "Water", "Coke", "Diet Coke", "Coke Zero",
 			"7-Up", "Monster", "Red Bull", "Dr. Pepper", "Crush", "Gatorade" };
+	// private int SelectedPop = 10;
 
 	private HardwareSimulator machine = new HardwareSimulator(validValues,
 			popPrices, popNames);
 
-	// Sets up the GUI and the machine
 	public void addComponentsToPane(Container pane) {
 		if (RIGHT_TO_LEFT) {
 			pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -178,6 +178,34 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.gridy = 2;
 		pane.add(ExactChangeLight, c);
 
+		// Unused Part
+		// DeliveryChute = new JTextField("");
+		// DeliveryChute.setEditable(true);
+		// DeliveryChute.setBackground(Color.WHITE);
+		// DeliveryChute.createVolatileImage(1,2);
+		// DeliveryChute.setForeground(Color.BLACK);
+		// DeliveryChute.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+		// c.fill = GridBagConstraints.HORIZONTAL;
+		// c.ipady = 10;
+		// c.weightx = 0.0;
+		// c.gridwidth = 1;
+		// c.gridx = 4;
+		// c.gridy = 2;
+		// pane.add(DeliveryChute, c);
+		//
+		// ReturnChange = new JTextField("");
+		// ReturnChange.setEditable(true);
+		// ReturnChange.setBackground(Color.WHITE);
+		// ReturnChange.setForeground(Color.BLACK);
+		// ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+		// c.fill = GridBagConstraints.HORIZONTAL;
+		// c.ipady = 10;
+		// c.weightx = 0.0;
+		// c.gridwidth = 1;
+		// c.gridx = 6;
+		// c.gridy = 2;
+		// pane.add(ReturnChange, c);
+
 		DeliveryChute = new JTextField("DeliveryChute");
 		DeliveryChute.setEditable(true);
 		DeliveryChute.setBackground(Color.WHITE);
@@ -191,6 +219,19 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.gridx = 2;
 		c.gridy = 2;
 		pane.add(DeliveryChute, c);
+		//
+		// ReturnChange = new JTextField("");
+		// ReturnChange.setEditable(true);
+		// ReturnChange.setBackground(Color.WHITE);
+		// ReturnChange.setForeground(Color.BLACK);
+		// ReturnChange.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+		// c.fill = GridBagConstraints.HORIZONTAL;
+		// c.ipady = 10;
+		// c.weightx = 0.0;
+		// c.gridwidth = 1;
+		// c.gridx = 6;
+		// c.gridy = 2;
+		// pane.add(ReturnChange, c);
 
 		br = new JButton("Return");
 		br.addActionListener(this);
@@ -200,6 +241,7 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		c.anchor = GridBagConstraints.PAGE_END; // bottom of space
 		c.insets = new Insets(10, 0, 0, 0); // top padding
 		c.gridx = 8;
+		// c.gridwidth = 1; //2 columns wide
 		c.gridy = 1;
 		pane.add(br, c);
 
@@ -260,7 +302,6 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 		}
 	}
 
-	// Also sets up GUI
 	public void addComponentsToPane2(Container pane) {
 		if (RIGHT_TO_LEFT) {
 			pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
@@ -443,8 +484,14 @@ public class GUI implements ActionListener, DisplaySimulatorListener,
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
+		// javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		// public void run() {
+		// this.createAndShowGUI();
+		// }
+		// });
 		GUI gui = new GUI();
 		gui.createAndShowGUI();
+		// v.outOfOrderLight();
 	}
 
 	@Override

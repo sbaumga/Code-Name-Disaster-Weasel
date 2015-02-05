@@ -13,16 +13,13 @@ import java.util.TimerTask;
  * coins entered by the user;</li>
  * <li>one coin receptacle (called the storage bin) to store coins that have
  * been accepted as payment;</li>
- * <li>a set of zero or more coin racks (the number and the denomination of
- * coins stored by each is specified in the constructor);</li>
  * <li>one delivery chute used to deliver pop cans and to return coins;</li>
  * <li>a set of zero or more pop can racks (the number, cost, and pop name
  * stored in each is specified in the constructor);</li>
  * <li>one textual display;</li>
  * <li>a set of zero or more selection buttons (exactly one per pop can rack);</li>
  * <li>a selection button to return entered coins to the user; and</li>
- * <li>two indicator lights to indicate that the machine is out of order and
- * that the machine will not produce change.</li>
+ * <li>one indicator light to indicate that the machine is out of order.</li>
  * </ul>
  * <p>
  * The component devices are interconnected as follows:
@@ -32,11 +29,6 @@ import java.util.TimerTask;
  * <li>the outputs of the coin receptacle are connected to the input of the the
  * delivery chute (for invalid coins or other coins to be returned) and the
  * storage bin (for coins to be accepted as payment);</li>
- * <li>the outputs of the coin receptacle are connected to the inputs of the
- * coin racks (for valid coins to be stored therein), the delivery chute (for
- * invalid coins or other coins to be returned), and the storage bin (for coins
- * to be accepted that do not fit in the coin racks);</li>
- * <li>the output of each coin rack is connected to the delivery chute; and</li>
  * <li>and</li>
  * <li>the output of each pop can rack is connected to the delivery chute.</li>
  * </ul>
